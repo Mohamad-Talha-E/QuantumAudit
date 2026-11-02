@@ -245,6 +245,7 @@ detection and the fact that lab ML-DSA certificates are signed by an RSA CA.
 | [`REPORT.md`](REPORT.md) | Full written report: literature, method, results, discussion |
 | [`results.md`](results.md) | Every measured number and the command that produced it |
 | [`DEVIATIONS.md`](DEVIATIONS.md) | Every difference from the design guide, with reasons |
+| [`TeamWorkings/README.md`](TeamWorkings/README.md) | Per-member file ownership and step-by-step commit guide |
 
 ---
 
