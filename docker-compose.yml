@@ -1,0 +1,40 @@
+name: quantumaudit
+
+services:
+  # General purpose toolbox. Use it for scanning, scoring, benchmarks, tests.
+  #   docker compose run --rm tools python -m scanner.cli --help
+  tools:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+    image: quantumaudit/tools:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    init: true
+
+  # The controlled lab. 20 TLS servers on ports 8443-8462.
+  #   docker compose up -d lab
+  #   docker compose logs -f lab
+  lab:
+    image: quantumaudit/tools:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: bash lab/start_lab.sh
+    ports:
+      - "8443-8462:8443-8462"
+    init: true
+
+  # Web dashboard.
+  #   docker compose up -d dashboard
+  #   http://localhost:8000
+  dashboard:
+    image: quantumaudit/tools:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: uvicorn dashboard.app:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    init: true
