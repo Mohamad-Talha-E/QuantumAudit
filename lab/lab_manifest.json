@@ -1,0 +1,25 @@
+{
+  "_comment": "Ground truth for the controlled lab. The scanner is validated against this file (E1).",
+  "servers": [
+    {"port": 8443, "name": "rsa2048-x25519",        "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "X25519",            "hybrid": false},
+    {"port": 8444, "name": "rsa4096-x25519",        "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 4096, "kx_group": "X25519",            "hybrid": false},
+    {"port": 8445, "name": "ecdsa256-x25519",       "protocol": "TLSv1.3", "cert_alg": "EC",     "key_size": 256,  "kx_group": "X25519",            "hybrid": false},
+    {"port": 8446, "name": "ecdsa384-p256",         "protocol": "TLSv1.3", "cert_alg": "EC",     "key_size": 384,  "kx_group": "P-256",             "hybrid": false},
+    {"port": 8447, "name": "rsa2048-hybrid",        "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "X25519MLKEM768",    "hybrid": true},
+    {"port": 8448, "name": "rsa2048-mlkem768",      "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "MLKEM768",          "hybrid": true},
+    {"port": 8449, "name": "mldsa65-x25519",        "protocol": "TLSv1.3", "cert_alg": "ML-DSA", "key_size": 0,    "kx_group": "X25519",            "hybrid": false},
+    {"port": 8450, "name": "mldsa65-hybrid",        "protocol": "TLSv1.3", "cert_alg": "ML-DSA", "key_size": 0,    "kx_group": "X25519MLKEM768",    "hybrid": true},
+    {"port": 8451, "name": "tls12-rsa2048-p256",    "protocol": "TLSv1.2", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "P-256",             "hybrid": false},
+    {"port": 8452, "name": "tls12-rsa4096-p384",    "protocol": "TLSv1.2", "cert_alg": "RSA",    "key_size": 4096, "kx_group": "P-384",             "hybrid": false},
+    {"port": 8453, "name": "tls12-ecdsa256-p256",   "protocol": "TLSv1.2", "cert_alg": "EC",     "key_size": 256,  "kx_group": "P-256",             "hybrid": false},
+    {"port": 8454, "name": "rsa2048-p256",          "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "P-256",             "hybrid": false},
+    {"port": 8455, "name": "ecdsa256-p384",         "protocol": "TLSv1.3", "cert_alg": "EC",     "key_size": 256,  "kx_group": "P-384",             "hybrid": false},
+    {"port": 8456, "name": "ed25519-x25519",        "protocol": "TLSv1.3", "cert_alg": "Ed25519","key_size": 0,    "kx_group": "X25519",            "hybrid": false},
+    {"port": 8457, "name": "rsa2048-x448",          "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "X448",              "hybrid": false},
+    {"port": 8458, "name": "rsa2048-aes128",        "protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "X25519",            "hybrid": false, "cipher": "TLS_AES_128_GCM_SHA256"},
+    {"port": 8459, "name": "ecdsa384-mlkem768",     "protocol": "TLSv1.3", "cert_alg": "EC",     "key_size": 384,  "kx_group": "MLKEM768",          "hybrid": true},
+    {"port": 8460, "name": "tls12-rsa2048-aes128",  "protocol": "TLSv1.2", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "RSA",               "hybrid": false, "cipher": "AES128-SHA"},
+    {"port": 8461, "name": "rsa2048-secp256r1mlkem","protocol": "TLSv1.3", "cert_alg": "RSA",    "key_size": 2048, "kx_group": "SecP256r1MLKEM768", "hybrid": true},
+    {"port": 8462, "name": "mldsa65-mlkem768",      "protocol": "TLSv1.3", "cert_alg": "ML-DSA", "key_size": 0,    "kx_group": "MLKEM768",          "hybrid": true}
+  ]
+}
