@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Databases and downloaded data are reproducible, never commit them
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.csv
+data/*.zip
+data/tranco/
+# Generated experiment reports (regenerate with the commands in results.md)
+data/*.md
+data/*.json
+data/rescan.txt
+
+# Generated lab material
+lab/certs/
+lab/servers/
+lab/logs/
+
+# Generated dashboard charts
+dashboard/static/charts/
+
+.DS_Store
+Thumbs.db
