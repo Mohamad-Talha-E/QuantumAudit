@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuantumAudit &mdash; TLS cryptographic inventory</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>QuantumAudit</h1>
+      <p>TLS cryptographic inventory &amp; post-quantum risk assessment</p>
+    </div>
+    <div class="controls">
+      <label>Scan run
+        <select id="run-select">
+          {% for run in runs %}
+          <option value="{{ run.run_id }}">{{ run.run_id }} ({{ run.ok }}/{{ run.hosts }})</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Planning scenario
+        <select id="scenario-select"></select>
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <div id="empty" class="panel empty" hidden>
+      No scan data yet. Run <span class="mono">python -m scanner.cli scan-lab</span>
+      or <span class="mono">scan-tranco</span> first.
+    </div>
+
+    <div id="content" hidden>
+      <section class="cards">
+        <div class="card">
+          <div class="label">Hosts scanned</div>
+          <div class="value" id="kpi-hosts">0</div>
+          <div class="hint" id="kpi-failed">0 failed</div>
+        </div>
+        <div class="card">
+          <div class="label">Post-quantum key exchange</div>
+          <div class="value" id="kpi-pq">0%</div>
+          <div class="hint" id="kpi-pq-count">0 hosts</div>
+        </div>
+        <div class="card">
+          <div class="label">High risk (contextual)</div>
+          <div class="value high" id="kpi-high">0</div>
+          <div class="hint" id="kpi-high-share">0% of hosts</div>
+        </div>
+        <div class="card">
+          <div class="label">High risk (naive rule)</div>
+          <div class="value" id="kpi-naive">0</div>
+          <div class="hint">flags every RSA/ECC host</div>
+        </div>
+        <div class="card">
+          <div class="label">Verdict flips (E6)</div>
+          <div class="value" id="kpi-flips">0</div>
+          <div class="hint" id="kpi-flips-hint">across extreme scenarios</div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Risk verdicts: contextual vs naive</h2>
+          <img id="chart-risk" alt="Risk verdict distribution">
+          <div class="legend">
+            <span><span class="dot" style="background:#2e7d32"></span>low</span>
+            <span><span class="dot" style="background:#ef6c00"></span>medium</span>
+            <span><span class="dot" style="background:#c62828"></span>high</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Key-exchange groups</h2>
+          <img id="chart-kx" alt="Key exchange group distribution">
+        </div>
+        <div class="panel">
+          <h2>Certificate algorithms</h2>
+          <img id="chart-certs" alt="Certificate algorithm distribution">
+        </div>
+        <div class="panel">
+          <h2>Sensitivity: share rated high</h2>
+          <img id="chart-sensitivity" alt="Sensitivity heatmap">
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Findings</h2>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Host</th>
+                <th>Proto</th>
+                <th>Key exchange</th>
+                <th>Certificate</th>
+                <th>Class</th>
+                <th>Verdict</th>
+                <th>Why</th>
+              </tr>
+            </thead>
+            <tbody id="findings-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Metadata only: the scanner completes a TLS handshake and reads the
+    certificate. It never sends an HTTP request and never stores payload.
+  </footer>
+
+  <script>
+    const runSelect = document.getElementById("run-select");
+    const scenarioSelect = document.getElementById("scenario-select");
+    const content = document.getElementById("content");
+    const empty = document.getElementById("empty");
+
+    let current = null;
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function badge(level) {
+      const safe = ["low", "medium", "high"].includes(level) ? level : "unknown";
+      return `<span class="badge ${safe}">${escapeHtml(safe)}</span>`;
+    }
+
+    async function loadRuns() {
+      const response = await fetch("/api/runs");
+      const data = await response.json();
+      if (!data.runs.length) {
+        empty.hidden = false;
+        content.hidden = true;
+        return;
+      }
+      empty.hidden = true;
+      content.hidden = false;
+      runSelect.value = runSelect.value || data.runs[0].run_id;
+      await loadSummary();
+    }
+
+    async function loadSummary() {
+      const runId = runSelect.value;
+      if (!runId) return;
+      const scenario = scenarioSelect.value;
+      const url = `/api/summary?run_id=${encodeURIComponent(runId)}` +
+                  (scenario ? `&scenario=${encodeURIComponent(scenario)}` : "");
+      const response = await fetch(url);
+      if (!response.ok) {
+        empty.hidden = false;
+        content.hidden = true;
+        return;
+      }
+      const data = await response.json();
+      current = data;
+
+      // Populate the scenario selector once.
+      if (scenarioSelect.options.length === 0) {
+        const list = data.scenarios.length ? data.scenarios : [data.scenario];
+        scenarioSelect.innerHTML = list.map(s =>
+          `<option value="${escapeHtml(s)}" ${s === data.scenario ? "selected" : ""}>${escapeHtml(s)}</option>`
+        ).join("");
+      }
+
+      const hosts = data.hosts || 0;
+      const high = (data.contextual && data.contextual.high) || 0;
+      const naiveHigh = (data.naive && data.naive.high) || 0;
+
+      document.getElementById("kpi-hosts").textContent = hosts.toLocaleString();
+      document.getElementById("kpi-failed").textContent = `${data.failed} failed`;
+      document.getElementById("kpi-pq").textContent = `${data.pq_key_exchange_pct}%`;
+      document.getElementById("kpi-pq-count").textContent = `${data.hybrid} host(s)`;
+      document.getElementById("kpi-high").textContent = high.toLocaleString();
+      document.getElementById("kpi-high-share").textContent =
+        `${hosts ? Math.round(100 * high / hosts) : 0}% of hosts`;
+      document.getElementById("kpi-naive").textContent = naiveHigh.toLocaleString();
+
+      document.getElementById("chart-risk").src = `/static/charts/${data.charts.risk}`;
+      document.getElementById("chart-kx").src = `/static/charts/${data.charts.kx}`;
+      document.getElementById("chart-certs").src = `/static/charts/${data.charts.certs}`;
+      const sensitivity = document.getElementById("chart-sensitivity");
+      if (data.charts.sensitivity) {
+        sensitivity.src = `/static/charts/${data.charts.sensitivity}`;
+        sensitivity.parentElement.hidden = false;
+      } else {
+        sensitivity.parentElement.hidden = true;
+      }
+
+      await loadSensitivity(runId);
+      await loadFindings(runId, data.scenario);
+    }
+
+    async function loadSensitivity(runId) {
+      const response = await fetch(`/api/sensitivity?run_id=${encodeURIComponent(runId)}`);
+      if (!response.ok) return;
+      const data = await response.json();
+      document.getElementById("kpi-flips").textContent = data.flips.toLocaleString();
+      document.getElementById("kpi-flips-hint").textContent =
+        `${data.optimistic} vs ${data.pessimistic}`;
+    }
+
+    async function loadFindings(runId, scenario) {
+      const url = `/api/findings?run_id=${encodeURIComponent(runId)}` +
+                  `&scenario=${encodeURIComponent(scenario)}&limit=500`;
+      const response = await fetch(url);
+      const data = await response.json();
+      const body = document.getElementById("findings-body");
+
+      if (!data.findings.length) {
+        body.innerHTML = `<tr><td colspan="7" class="muted">No rows.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = data.findings.map(row => {
+        const cert = row.cert_alg
+          ? `${escapeHtml(row.cert_alg)}${row.key_size ? " " + row.key_size : ""}`
+          : "&mdash;";
+        const verdict = row.status === "error"
+          ? `<span class="badge unknown">error</span>`
+          : badge(row.score_contextual);
+        const why = row.status === "error"
+          ? `<span class="error">${escapeHtml(row.error || "scan failed")}</span>`
+          : escapeHtml(row.reason || "");
+        return `<tr>
+          <td class="mono">${escapeHtml(row.host)}:${row.port}</td>
+          <td>${row.protocol ? escapeHtml(row.protocol) : "&mdash;"}</td>
+          <td class="mono">${escapeHtml(row.kx_group || "unknown")}</td>
+          <td>${cert}</td>
+          <td>${escapeHtml(row.alg_class || "unknown")}</td>
+          <td>${verdict}</td>
+          <td class="muted">${why}</td>
+        </tr>`;
+      }).join("");
+    }
+
+    runSelect.addEventListener("change", () => {
+      scenarioSelect.innerHTML = "";
+      loadSummary();
+    });
+    scenarioSelect.addEventListener("change", loadSummary);
+
+    loadRuns();
+  </script>
+</body>
+</html>
