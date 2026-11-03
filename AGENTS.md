@@ -28,7 +28,8 @@ ownership.
 ## Current state
 
 - Branch: `build/full-system`
-- Last commit: `f3766d2`
+- Last feature commit: `f3766d2`
+- Continuation docs: `abe7ab3`
 - Tests: `61 passed`
 - `main`: untouched
 

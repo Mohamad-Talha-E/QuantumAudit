@@ -5,10 +5,14 @@ the work stands and what to do next.
 
 **Last verified:** 2026-11-03
 **Branch:** `build/full-system`
-**Last commit:** `f3766d2` — `docs(team): add 30-minute per-member handoffs`
+**Last feature commit:** `f3766d2` — `docs(team): add 30-minute per-member handoffs`
+**Continuation docs added in:** `abe7ab3`
 **Pushed:** yes, `origin/build/full-system`
 **Tests:** `61 passed`
 **`main`:** untouched. It has **not** been merged into yet.
+
+To see the current HEAD, run `git log --oneline -3`. This file may have a later
+docs-only commit than the two hashes above.
 
 Read this file first, then `TeamWorkings/README.md`.
 
@@ -409,7 +413,8 @@ These protect the integrity of the project.
 ```text
 Read NEXT_STEPS.md first. Then read TeamWorkings/README.md.
 
-We are on branch build/full-system at commit f3766d2. The suite is 61 passed.
+We are on branch build/full-system. The last feature commit is f3766d2. The
+continuation docs were added in abe7ab3. The suite is 61 passed.
 The next milestone is the four teammate handoffs, then merge to main, then
 submission packaging and demo prep.
 
