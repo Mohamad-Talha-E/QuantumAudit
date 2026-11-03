@@ -395,6 +395,12 @@ Each team member led one area, with another member providing support:
   results and the final demonstration. GitHub commit history documents each
   member's contribution.
 
+Ongoing work is tracked per member in `TeamWorkings/<Name>/TASKS.md`. Each
+member commits real changes to their live module rather than a copy, records
+the commit in their task log, and requests review from the owner of any other
+module they touch. Module ownership is declared in `.github/CODEOWNERS`, and the
+branch, test and review workflow is in `CONTRIBUTING.md`.
+
 ### B. Weeks 4 to 8
 
 - **Week 4: Data collection and scoring rules.** Tranco survey and feature
