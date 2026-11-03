@@ -8,6 +8,10 @@ This file is your work queue and contribution log. Pick a task, implement it in
 the live module, add tests, commit under your own Git identity, and record the
 commit below.
 
+> **Start here:** [`HANDOFF.md`](HANDOFF.md) is a ready-to-paste 30-minute task
+> for an AI coding agent. It contains the exact change, the test and the
+> commands. This file stays the long-term queue.
+
 ---
 
 ## Tasks
@@ -40,7 +44,7 @@ git checkout -b bahaa/scoring-validation
 # implement B1 in scoring/ and tests/
 docker compose run --rm tools python -m pytest tests -q
 git add scoring tests/test_mosca.py tests/test_rules.py
-git commit -m "feat(scoring): validate planning inputs and pin score boundaries"
+git commit -m "feat(scoring): validate planning inputs"
 git push -u origin bahaa/scoring-validation
 ```
 

@@ -56,7 +56,9 @@ docker compose run --rm tools python -m pytest tests -q
 
 ### Step 1 — Pick a task
 
-Open your `TeamWorkings/<Name>/TASKS.md`, choose a task, and note its ID.
+Open your `TeamWorkings/<Name>/HANDOFF.md` for a complete, 30-minute task with
+the exact change, test and commands. Use `TeamWorkings/<Name>/TASKS.md` for the
+full queue and to record the commit.
 
 ### Step 2 — Create a branch
 

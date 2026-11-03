@@ -15,6 +15,7 @@ ready.
 | `tests/test_db.py` | Mohamad Talha Ezzo | same |
 | `tests/test_kx.py` | Mohamad Talha Ezzo | same |
 | `tests/test_scan.py` | Mohamad Talha Ezzo | same |
+| `tests/test_schema_docs.py` | Mohamad Talha Ezzo | same |
 | `docker-compose.yml` | Mohamad Talha Ezzo | same |
 | `requirements.txt` | Mohamad Talha Ezzo | same |
 | `.dockerignore`, `.gitignore` | Mohamad Talha Ezzo | same |
@@ -22,6 +23,8 @@ ready.
 | `tests/test_rules.py` | Bahaa Mohamad | same |
 | `tests/test_mosca.py` | Bahaa Mohamad | same |
 | `lab/` | Ahmad Abualrub | `TeamWorkings/Ahmad_Abualrub/TASKS.md` |
+| `tests/test_lab_bench.py` | Ahmad Abualrub | same |
+| `tests/test_lab_parsing.py` | Ahmad Abualrub | same |
 | `docker/tools/` | Ahmad Abualrub | same |
 | `dashboard/` | Omar Abuzaid | `TeamWorkings/Omar_Abuzaid/TASKS.md` |
 | `tests/test_dashboard.py` | Omar Abuzaid | same |

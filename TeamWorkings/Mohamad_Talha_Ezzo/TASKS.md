@@ -10,6 +10,10 @@ This file is your work queue and contribution log. Pick a task, implement it in
 the live module, add tests, commit under your own Git identity, and record the
 commit below.
 
+> **Start here:** [`HANDOFF.md`](HANDOFF.md) is a ready-to-paste 30-minute task
+> for an AI coding agent. It contains the exact change, the test and the
+> commands. This file stays the long-term queue.
+
 ---
 
 ## Tasks
@@ -38,12 +42,12 @@ commit below.
 git config --local user.name  "Mohamad Talha Ezzo"
 git config --local user.email "talhaezzo2006@gmail.com"
 
-git checkout -b talha/scanner-diff
-# implement T1 in scanner/ and tests/
+git checkout -b talha/schema-docs
+# implement T5 in scanner/ and tests/
 docker compose run --rm tools python -m pytest tests -q
 git add scanner tests
-git commit -m "feat(scanner): add scan-diff command for two-run comparison"
-git push -u origin talha/scanner-diff
+git commit -m "docs(scanner): document the findings, scores and bench schema"
+git push -u origin talha/schema-docs
 ```
 
 Then update this file with the commit hash and open a pull request.
