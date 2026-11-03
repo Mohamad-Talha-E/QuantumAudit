@@ -21,6 +21,10 @@ The results are shown in a web dashboard and stored in SQLite.
 > code. Nothing is estimated or copied from the design guide. Every deviation
 > from that guide is recorded in [`DEVIATIONS.md`](DEVIATIONS.md).
 
+> **Picking this up after a break?** Read [`NEXT_STEPS.md`](NEXT_STEPS.md)
+> first. It records the current branch, commit, test count and the remaining
+> checklist.
+
 ---
 
 ## Why this is not just "RSA is broken"
@@ -109,7 +113,8 @@ QuantumAudit/
 ├── docker/tools/       the toolbox image
 ├── results.md          every measured number
 ├── REPORT.md           the written report
-└── DEVIATIONS.md       every difference from the design guide
+├── DEVIATIONS.md       every difference from the design guide
+└── NEXT_STEPS.md       current state and the remaining checklist
 ```
 
 ### Architecture
@@ -247,6 +252,7 @@ detection and the fact that lab ML-DSA certificates are signed by an RSA CA.
 | [`DEVIATIONS.md`](DEVIATIONS.md) | Every difference from the design guide, with reasons |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Branch, commit, test and review workflow |
 | [`TeamWorkings/README.md`](TeamWorkings/README.md) | Module ownership, task queues and contribution rules |
+| [`NEXT_STEPS.md`](NEXT_STEPS.md) | Current state, resume commands and the remaining checklist |
 
 ---
 
