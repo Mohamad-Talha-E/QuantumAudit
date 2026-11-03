@@ -12,12 +12,16 @@ task log is evidence of work; a copied folder is not.
 
 ## Folder map
 
-| Member | Student ID | Live module | Task file |
-|---|---|---|---|
-| Mohamad Talha Ezzo | 23000488 | `scanner/` | [`Mohamad_Talha_Ezzo/TASKS.md`](Mohamad_Talha_Ezzo/TASKS.md) |
-| Bahaa Mohamad | 23001498 | `scoring/` | [`Bahaa_Mohamad/TASKS.md`](Bahaa_Mohamad/TASKS.md) |
-| Ahmad Abualrub | 23001599 | `lab/` | [`Ahmad_Abualrub/TASKS.md`](Ahmad_Abualrub/TASKS.md) |
-| Omar Abuzaid | 23001809 | `dashboard/` | [`Omar_Abuzaid/TASKS.md`](Omar_Abuzaid/TASKS.md) |
+| Member | Student ID | Live module | 30-minute handoff | Task file |
+|---|---|---|---|---|
+| Mohamad Talha Ezzo | 23000488 | `scanner/` | [`Mohamad_Talha_Ezzo/HANDOFF.md`](Mohamad_Talha_Ezzo/HANDOFF.md) | [`TASKS.md`](Mohamad_Talha_Ezzo/TASKS.md) |
+| Bahaa Mohamad | 23001498 | `scoring/` | [`Bahaa_Mohamad/HANDOFF.md`](Bahaa_Mohamad/HANDOFF.md) | [`TASKS.md`](Bahaa_Mohamad/TASKS.md) |
+| Ahmad Abualrub | 23001599 | `lab/` | [`Ahmad_Abualrub/HANDOFF.md`](Ahmad_Abualrub/HANDOFF.md) | [`TASKS.md`](Ahmad_Abualrub/TASKS.md) |
+| Omar Abuzaid | 23001809 | `dashboard/` | [`Omar_Abuzaid/HANDOFF.md`](Omar_Abuzaid/HANDOFF.md) | [`TASKS.md`](Omar_Abuzaid/TASKS.md) |
+
+Each handoff was dry-run in a clean copy of the repository. Applying all four
+gives **84 passing tests** (61 existing plus 23 new). A member only applies
+their own handoff, so their branch adds that task's tests on top of the 61.
 
 Supporting documents:
 
@@ -32,7 +36,9 @@ Supporting documents:
 
 ## How it works
 
-1. Open **your** `TASKS.md` and pick a task.
+1. Open **your** `HANDOFF.md` for a complete, 30-minute task with the exact
+   change, test and commands. Paste it into Claude Code (or another coding
+   agent), review the diff, and commit. Use `TASKS.md` for the full queue.
 2. Create a branch named after yourself and the task, for example
    `bahaa/scoring-validation`.
 3. Implement the change in the **live module** (for example `scoring/`).

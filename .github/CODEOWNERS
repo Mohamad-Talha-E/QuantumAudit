@@ -11,6 +11,7 @@
 /tests/test_db.py            @Mohamad-Talha-E
 /tests/test_kx.py            @Mohamad-Talha-E
 /tests/test_scan.py          @Mohamad-Talha-E
+/tests/test_schema_docs.py   @Mohamad-Talha-E
 /docker-compose.yml          @Mohamad-Talha-E
 /requirements.txt            @Mohamad-Talha-E
 /.dockerignore               @Mohamad-Talha-E
@@ -23,6 +24,8 @@
 
 # --- Lab and Cryptographic Benchmarking -------------------------------------
 /lab/                        @ahmad-abualrub
+/tests/test_lab_bench.py     @ahmad-abualrub
+/tests/test_lab_parsing.py   @ahmad-abualrub
 /docker/tools/               @ahmad-abualrub
 
 # --- Dashboard and Documentation --------------------------------------------
