@@ -1,0 +1,38 @@
+# QuantumAudit code ownership
+#
+# Replace the placeholder handles below with each member's real GitHub
+# username. The repository owner is already correct.
+#
+# Format: path-pattern  @github-handle
+
+# --- Scanner and Data Engineering -------------------------------------------
+/scanner/                    @Mohamad-Talha-E
+/tests/conftest.py           @Mohamad-Talha-E
+/tests/test_db.py            @Mohamad-Talha-E
+/tests/test_kx.py            @Mohamad-Talha-E
+/tests/test_scan.py          @Mohamad-Talha-E
+/docker-compose.yml          @Mohamad-Talha-E
+/requirements.txt            @Mohamad-Talha-E
+/.dockerignore               @Mohamad-Talha-E
+/.gitignore                  @Mohamad-Talha-E
+
+# --- Risk Analytics and Scoring ---------------------------------------------
+/scoring/                    @bahaa-mohamad
+/tests/test_rules.py         @bahaa-mohamad
+/tests/test_mosca.py         @bahaa-mohamad
+
+# --- Lab and Cryptographic Benchmarking -------------------------------------
+/lab/                        @ahmad-abualrub
+/docker/tools/               @ahmad-abualrub
+
+# --- Dashboard and Documentation --------------------------------------------
+/dashboard/                  @omar-abuzaid
+/tests/test_dashboard.py     @omar-abuzaid
+/README.md                   @omar-abuzaid
+/REPORT.md                   @omar-abuzaid
+/results.md                  @omar-abuzaid
+/DEVIATIONS.md               @omar-abuzaid
+
+# --- Shared team process ----------------------------------------------------
+/CONTRIBUTING.md             @Mohamad-Talha-E @bahaa-mohamad @ahmad-abualrub @omar-abuzaid
+/TeamWorkings/               @Mohamad-Talha-E @bahaa-mohamad @ahmad-abualrub @omar-abuzaid
