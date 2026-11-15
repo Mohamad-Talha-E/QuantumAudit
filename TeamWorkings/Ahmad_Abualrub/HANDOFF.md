@@ -13,21 +13,22 @@
 
 **Member:** Ahmad Abualrub (23001599)
 **Area:** Lab and Cryptographic Benchmarking
-**Git identity:** `Ahmad Abualrub <your-github-email@example.com>`
+**Git identity:** `Ahmad Abualrub <Ahmadabualrubb@yahoo.com>`
+**GitHub:** `@ahmadabualrub`
 **Branch:** `ahmad/bench-variance`
 **Task:** A1 — Add a benchmark summary helper
 **Time budget:** about 30 minutes
 
-> **Before you start:** replace the email above with the email linked to your
-> GitHub account, and run:
+> **Before you start:** your identity is already filled in. Set it for this
+> repository:
 >
 > ```bash
 > git config --local user.name  "Ahmad Abualrub"
-> git config --local user.email "your-github-email@example.com"
+> git config --local user.email "Ahmadabualrubb@yahoo.com"
 > ```
 >
-> If the email stays as `your-github-email@example.com`, the commit will not
-> appear on your GitHub profile.
+> The email must match the one on your GitHub account (`@ahmadabualrub`), or the
+> commit will not appear on your profile.
 
 ---
 

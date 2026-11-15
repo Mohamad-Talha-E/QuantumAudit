@@ -3,7 +3,7 @@
 This file is the project's memory. If a chat is lost, this file still says where
 the work stands and what to do next.
 
-**Last verified:** 2026-11-03
+**Last verified:** 2026-11-15
 **Branch:** `build/full-system`
 **Last feature commit:** `f3766d2` — `docs(team): add 30-minute per-member handoffs`
 **Continuation docs added in:** `abe7ab3`
@@ -217,7 +217,7 @@ commit on their behalf; that would make the contribution history false.
 |---|---|---|---|---|
 | Mohamad Talha Ezzo | `scanner/` | `TeamWorkings/Mohamad_Talha_Ezzo/HANDOFF.md` | `talha/schema-docs` | T5 — schema docs + test |
 | Bahaa Mohamad | `scoring/` | `TeamWorkings/Bahaa_Mohamad/HANDOFF.md` | `bahaa/scoring-validation` | B1 — input validation + tests |
-| Ahmad Abualrub | `lab/` | `TeamWorkings/Ahmad_Abualrub/HANDOFF.md` | `ahmad/lab-parsing` | A1/A1b — `summarise()` + tests |
+| Ahmad Abualrub | `lab/` | `TeamWorkings/Ahmad_Abualrub/HANDOFF.md` | `ahmad/bench-variance` | A1 — `summarise()` + tests |
 | Omar Abuzaid | `dashboard/` | `TeamWorkings/Omar_Abuzaid/HANDOFF.md` | `omar/findings-filter` | O1/O1b — `q` filter + tests |
 
 ### What each member does
@@ -254,8 +254,8 @@ Copy this checklist into the chat when you resume.
 
 ### Priority 1 — Teammate contributions
 
-- [ ] Replace placeholder GitHub handles in `.github/CODEOWNERS`.
-- [ ] Replace `your-github-email@example.com` in Bahaa's, Ahmad's and Omar's
+- [x] Replace placeholder GitHub handles in `.github/CODEOWNERS`.
+- [x] Replace `your-github-email@example.com` in Bahaa's, Ahmad's and Omar's
       `HANDOFF.md` and `TASKS.md`.
 - [ ] Talha runs T5 and commits.
 - [ ] Bahaa runs B1 and commits.
@@ -318,28 +318,27 @@ Copy this checklist into the chat when you resume.
 
 ---
 
-## 6. Placeholders that still need real values
+## 6. Identities — all filled in
 
-| File | Placeholder | Replace with |
+No placeholders remain. Every handle and email below is real.
+
+| Member | GitHub handle | Git email |
 |---|---|---|
-| `.github/CODEOWNERS` | `@bahaa-mohamad` | Bahaa's real GitHub handle |
-| `.github/CODEOWNERS` | `@ahmad-abualrub` | Ahmad's real GitHub handle |
-| `.github/CODEOWNERS` | `@omar-abuzaid` | Omar's real GitHub handle |
-| `TeamWorkings/Bahaa_Mohamad/HANDOFF.md` | `your-github-email@example.com` | Bahaa's GitHub email |
-| `TeamWorkings/Bahaa_Mohamad/TASKS.md` | `your-github-email@example.com` | Bahaa's GitHub email |
-| `TeamWorkings/Ahmad_Abualrub/HANDOFF.md` | `your-github-email@example.com` | Ahmad's GitHub email |
-| `TeamWorkings/Ahmad_Abualrub/TASKS.md` | `your-github-email@example.com` | Ahmad's GitHub email |
-| `TeamWorkings/Omar_Abuzaid/HANDOFF.md` | `your-github-email@example.com` | Omar's GitHub email |
-| `TeamWorkings/Omar_Abuzaid/TASKS.md` | `your-github-email@example.com` | Omar's GitHub email |
+| Mohamad Talha Ezzo | `@Mohamad-Talha-E` | `talhaezzo2006@gmail.com` |
+| Bahaa Mohamad | `@Ibahaaaldin` | `Baha.2k5@icloud.com` |
+| Ahmad Abualrub | `@ahmadabualrub` | `Ahmadabualrubb@yahoo.com` |
+| Omar Abuzaid | `@Omar-Abuzaid-stack` | `Moahdzaid@yahoo.com` |
 
-Talha's identity is already set: `Mohamad Talha Ezzo <talhaezzo2006@gmail.com>`.
-
-Find any remaining placeholder:
+Check for regressions:
 
 ```bash
-git grep -n "example.com"
+git grep -n "your-github-email"
 git grep -n "@bahaa-mohamad\|@ahmad-abualrub\|@omar-abuzaid"
 ```
+
+Expected: no output from either. `CONTRIBUTING.md` keeps a generic
+`your-github-email@example.com` inside its copy-paste template; that is a
+template, not an identity, and is intentionally left alone.
 
 ---
 

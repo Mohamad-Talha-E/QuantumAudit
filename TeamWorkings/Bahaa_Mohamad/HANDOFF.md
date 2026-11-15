@@ -13,21 +13,22 @@
 
 **Member:** Bahaa Mohamad (23001498)
 **Area:** Risk Analytics and Scoring
-**Git identity:** `Bahaa Mohamad <your-github-email@example.com>`
+**Git identity:** `Bahaa Mohamad <Baha.2k5@icloud.com>`
+**GitHub:** `@Ibahaaaldin`
 **Branch:** `bahaa/scoring-validation`
 **Task:** B1 — Validate planning inputs
 **Time budget:** about 30 minutes
 
-> **Before you start:** replace the email above with the email linked to your
-> GitHub account, and run:
+> **Before you start:** your identity is already filled in. Set it for this
+> repository:
 >
 > ```bash
 > git config --local user.name  "Bahaa Mohamad"
-> git config --local user.email "your-github-email@example.com"
+> git config --local user.email "Baha.2k5@icloud.com"
 > ```
 >
-> If the email stays as `your-github-email@example.com`, the commit will not
-> appear on your GitHub profile.
+> The email must match the one on your GitHub account (`@Ibahaaaldin`), or the
+> commit will not appear on your profile.
 
 ---
 

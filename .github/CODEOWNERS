@@ -1,7 +1,6 @@
 # QuantumAudit code ownership
 #
-# Replace the placeholder handles below with each member's real GitHub
-# username. The repository owner is already correct.
+# All handles below are real GitHub usernames.
 #
 # Format: path-pattern  @github-handle
 
@@ -18,24 +17,24 @@
 /.gitignore                  @Mohamad-Talha-E
 
 # --- Risk Analytics and Scoring ---------------------------------------------
-/scoring/                    @bahaa-mohamad
-/tests/test_rules.py         @bahaa-mohamad
-/tests/test_mosca.py         @bahaa-mohamad
+/scoring/                    @Ibahaaaldin
+/tests/test_rules.py         @Ibahaaaldin
+/tests/test_mosca.py         @Ibahaaaldin
 
 # --- Lab and Cryptographic Benchmarking -------------------------------------
-/lab/                        @ahmad-abualrub
-/tests/test_lab_bench.py     @ahmad-abualrub
-/tests/test_lab_parsing.py   @ahmad-abualrub
-/docker/tools/               @ahmad-abualrub
+/lab/                        @ahmadabualrub
+/tests/test_lab_bench.py     @ahmadabualrub
+/tests/test_lab_parsing.py   @ahmadabualrub
+/docker/tools/               @ahmadabualrub
 
 # --- Dashboard and Documentation --------------------------------------------
-/dashboard/                  @omar-abuzaid
-/tests/test_dashboard.py     @omar-abuzaid
-/README.md                   @omar-abuzaid
-/REPORT.md                   @omar-abuzaid
-/results.md                  @omar-abuzaid
-/DEVIATIONS.md               @omar-abuzaid
+/dashboard/                  @Omar-Abuzaid-stack
+/tests/test_dashboard.py     @Omar-Abuzaid-stack
+/README.md                   @Omar-Abuzaid-stack
+/REPORT.md                   @Omar-Abuzaid-stack
+/results.md                  @Omar-Abuzaid-stack
+/DEVIATIONS.md               @Omar-Abuzaid-stack
 
 # --- Shared team process ----------------------------------------------------
-/CONTRIBUTING.md             @Mohamad-Talha-E @bahaa-mohamad @ahmad-abualrub @omar-abuzaid
-/TeamWorkings/               @Mohamad-Talha-E @bahaa-mohamad @ahmad-abualrub @omar-abuzaid
+/CONTRIBUTING.md             @Mohamad-Talha-E @Ibahaaaldin @ahmadabualrub @Omar-Abuzaid-stack
+/TeamWorkings/               @Mohamad-Talha-E @Ibahaaaldin @ahmadabualrub @Omar-Abuzaid-stack
