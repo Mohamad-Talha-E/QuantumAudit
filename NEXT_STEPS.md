@@ -325,7 +325,7 @@ No placeholders remain. Every handle and email below is real.
 | Member | GitHub handle | Git email |
 |---|---|---|
 | Mohamad Talha Ezzo | `@Mohamad-Talha-E` | `talhaezzo2006@gmail.com` |
-| Bahaa Mohamad | `@Ibahaaaldin` | `Baha.2k5@icloud.com` |
+| Bahaa Mohamad | `@IBahaaaldin` | `Baha.2k5@icloud.com` |
 | Ahmad Abualrub | `@ahmadabualrub` | `Ahmadabualrubb@yahoo.com` |
 | Omar Abuzaid | `@Omar-Abuzaid-stack` | `Moahdzaid@yahoo.com` |
 

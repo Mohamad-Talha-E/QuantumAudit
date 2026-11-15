@@ -14,7 +14,7 @@
 **Member:** Bahaa Mohamad (23001498)
 **Area:** Risk Analytics and Scoring
 **Git identity:** `Bahaa Mohamad <Baha.2k5@icloud.com>`
-**GitHub:** `@Ibahaaaldin`
+**GitHub:** `@IBahaaaldin`
 **Branch:** `bahaa/scoring-validation`
 **Task:** B1 — Validate planning inputs
 **Time budget:** about 30 minutes
@@ -27,7 +27,7 @@
 > git config --local user.email "Baha.2k5@icloud.com"
 > ```
 >
-> The email must match the one on your GitHub account (`@Ibahaaaldin`), or the
+> The email must match the one on your GitHub account (`@IBahaaaldin`), or the
 > commit will not appear on your profile.
 
 ---
