@@ -17,9 +17,9 @@
 /.gitignore                  @Mohamad-Talha-E
 
 # --- Risk Analytics and Scoring ---------------------------------------------
-/scoring/                    @Ibahaaaldin
-/tests/test_rules.py         @Ibahaaaldin
-/tests/test_mosca.py         @Ibahaaaldin
+/scoring/                    @IBahaaaldin
+/tests/test_rules.py         @IBahaaaldin
+/tests/test_mosca.py         @IBahaaaldin
 
 # --- Lab and Cryptographic Benchmarking -------------------------------------
 /lab/                        @ahmadabualrub
@@ -36,5 +36,5 @@
 /DEVIATIONS.md               @Omar-Abuzaid-stack
 
 # --- Shared team process ----------------------------------------------------
-/CONTRIBUTING.md             @Mohamad-Talha-E @Ibahaaaldin @ahmadabualrub @Omar-Abuzaid-stack
-/TeamWorkings/               @Mohamad-Talha-E @Ibahaaaldin @ahmadabualrub @Omar-Abuzaid-stack
+/CONTRIBUTING.md             @Mohamad-Talha-E @IBahaaaldin @ahmadabualrub @Omar-Abuzaid-stack
+/TeamWorkings/               @Mohamad-Talha-E @IBahaaaldin @ahmadabualrub @Omar-Abuzaid-stack
