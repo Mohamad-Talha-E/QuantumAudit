@@ -40,7 +40,7 @@ commit below.
 
 ```bash
 git config --local user.name  "Omar Abuzaid"
-git config --local user.email "your-github-email@example.com"
+git config --local user.email "Moahdzaid@yahoo.com"
 
 git checkout -b omar/findings-filter
 # implement O1 in dashboard/ and tests/

@@ -39,7 +39,7 @@ commit below.
 
 ```bash
 git config --local user.name  "Ahmad Abualrub"
-git config --local user.email "your-github-email@example.com"
+git config --local user.email "Ahmadabualrubb@yahoo.com"
 
 git checkout -b ahmad/bench-variance
 # implement A1 in lab/ and tests/

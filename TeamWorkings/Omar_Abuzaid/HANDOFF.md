@@ -13,21 +13,22 @@
 
 **Member:** Omar Abuzaid (23001809)
 **Area:** Dashboard and Documentation
-**Git identity:** `Omar Abuzaid <your-github-email@example.com>`
+**Git identity:** `Omar Abuzaid <Moahdzaid@yahoo.com>`
+**GitHub:** `@Omar-Abuzaid-stack`
 **Branch:** `omar/findings-filter`
 **Task:** O1 — Add a text filter to the findings API
 **Time budget:** about 30 minutes
 
-> **Before you start:** replace the email above with the email linked to your
-> GitHub account, and run:
+> **Before you start:** your identity is already filled in. Set it for this
+> repository:
 >
 > ```bash
 > git config --local user.name  "Omar Abuzaid"
-> git config --local user.email "your-github-email@example.com"
+> git config --local user.email "Moahdzaid@yahoo.com"
 > ```
 >
-> If the email stays as `your-github-email@example.com`, the commit will not
-> appear on your GitHub profile.
+> The email must match the one on your GitHub account (`@Omar-Abuzaid-stack`), or
+> the commit will not appear on your profile.
 
 ---
 

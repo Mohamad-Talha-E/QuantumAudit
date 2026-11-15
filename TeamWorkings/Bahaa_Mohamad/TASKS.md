@@ -38,7 +38,7 @@ commit below.
 
 ```bash
 git config --local user.name  "Bahaa Mohamad"
-git config --local user.email "your-github-email@example.com"
+git config --local user.email "Baha.2k5@icloud.com"
 
 git checkout -b bahaa/scoring-validation
 # implement B1 in scoring/ and tests/
