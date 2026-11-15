@@ -170,3 +170,21 @@ def test_findings_pagination_beyond_available_rows(seeded):
     assert rows == []
 
 
+def test_methodology_page_renders_formula_and_defaults():
+    from starlette.requests import Request
+
+    req = Request({"type": "http", "method": "GET", "path": "/methodology", "headers": []})
+    resp = dashboard_app.methodology(req)
+    assert resp.status_code == 200
+    html = resp.body.decode("utf-8")
+    assert "X + Y" in html
+    assert "Mosca" in html
+    assert "x15_y3_z15" in html
+    assert "vulnerable" in html
+    assert "hybrid" in html
+    assert "resistant" in html
+    assert "weakened" in html
+    assert "Handshake Only" in html
+
+
+
