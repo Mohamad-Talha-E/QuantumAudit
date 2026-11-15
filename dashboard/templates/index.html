@@ -17,16 +17,18 @@
       <a href="/methodology">Methodology</a>
     </nav>
     <div class="controls">
-      <label>Scan run
-        <select id="run-select">
+      <div class="control-group">
+        <label for="run-select">Scan run</label>
+        <select id="run-select" name="run_id">
           {% for run in runs %}
           <option value="{{ run.run_id }}">{{ run.run_id }} ({{ run.ok }}/{{ run.hosts }})</option>
           {% endfor %}
         </select>
-      </label>
-      <label>Planning scenario
-        <select id="scenario-select"></select>
-      </label>
+      </div>
+      <div class="control-group">
+        <label for="scenario-select">Planning scenario</label>
+        <select id="scenario-select" name="scenario"></select>
+      </div>
     </div>
   </header>
 
@@ -94,17 +96,19 @@
           <h2>Findings</h2>
           <div class="table-toolbar">
             <div class="search-box">
+              <label for="findings-search" class="sr-only">Search findings</label>
               <input type="search" id="findings-search" placeholder="Search host, kx, cert, cipher..." aria-label="Search findings" autocomplete="off">
             </div>
             <div class="pagination">
-              <button type="button" id="findings-prev" class="btn" disabled>&larr; Prev</button>
-              <span id="findings-page-info" class="page-info">Page 1</span>
-              <button type="button" id="findings-next" class="btn" disabled>Next &rarr;</button>
+              <button type="button" id="findings-prev" class="btn" aria-label="Previous page" disabled>&larr; Prev</button>
+              <span id="findings-page-info" class="page-info" aria-live="polite">Page 1</span>
+              <button type="button" id="findings-next" class="btn" aria-label="Next page" disabled>Next &rarr;</button>
             </div>
           </div>
         </div>
         <div class="scroll">
           <table>
+            <caption class="sr-only">Cryptographic inventory and risk assessment findings</caption>
             <thead>
               <tr>
                 <th>Host</th>
@@ -149,9 +153,17 @@
       }[ch]));
     }
 
+    const badgeSymbols = {
+      low: "✓",
+      medium: "◆",
+      high: "▲",
+      unknown: "?"
+    };
+
     function badge(level) {
       const safe = ["low", "medium", "high"].includes(level) ? level : "unknown";
-      return `<span class="badge ${safe}">${escapeHtml(safe)}</span>`;
+      const sym = badgeSymbols[safe] || "?";
+      return `<span class="badge ${safe}"><span aria-hidden="true">${sym} </span>${escapeHtml(safe)}</span>`;
     }
 
     async function loadRuns() {
@@ -266,7 +278,7 @@
           ? `${escapeHtml(row.cert_alg)}${row.key_size ? " " + row.key_size : ""}`
           : "&mdash;";
         const verdict = row.status === "error"
-          ? `<span class="badge unknown">error</span>`
+          ? `<span class="badge unknown"><span aria-hidden="true">✕ </span>error</span>`
           : badge(row.score_contextual);
         const why = row.status === "error"
           ? `<span class="error">${escapeHtml(row.error || "scan failed")}</span>`
