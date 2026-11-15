@@ -134,3 +134,39 @@ def test_findings_q_is_passed_through_api(seeded):
     assert payload["q"] == "pq"
     assert len(payload["findings"]) == 1
 
+
+def test_dashboard_index_renders_search_and_pagination_controls(seeded):
+    from starlette.requests import Request
+
+    req = Request({"type": "http", "method": "GET", "path": "/", "headers": []})
+    resp = dashboard_app.index(req)
+    assert resp.status_code == 200
+    html = resp.body.decode("utf-8")
+    assert 'id="findings-search"' in html
+    assert 'id="findings-prev"' in html
+    assert 'id="findings-next"' in html
+    assert 'id="findings-page-info"' in html
+
+
+def test_findings_filter_with_pagination(seeded):
+    # Both example.com and pq.example match "example"
+    first = dashboard_app.run_findings(
+        "run-demo", "x15_y3_z15", limit=1, offset=0, q="example"
+    )
+    second = dashboard_app.run_findings(
+        "run-demo", "x15_y3_z15", limit=1, offset=1, q="example"
+    )
+    assert len(first) == 1
+    assert len(second) == 1
+    assert first[0]["host"] != second[0]["host"]
+    assert "example" in first[0]["host"]
+    assert "example" in second[0]["host"]
+
+
+def test_findings_pagination_beyond_available_rows(seeded):
+    rows = dashboard_app.run_findings(
+        "run-demo", "x15_y3_z15", limit=10, offset=100, q="example"
+    )
+    assert rows == []
+
+
