@@ -438,6 +438,8 @@ are in `results.md`.
 
 ### A. E1 — Scanner accuracy against the lab
 
+> **Regeneration command:** `docker compose up -d lab && python -m lab.evaluate` (see Appendix A).
+
 Twenty controlled servers on ports 8443–8462 were scanned and compared field by
 field with `lab/lab_manifest.json`.
 
@@ -467,6 +469,8 @@ naive substring match treated `ML-DSA` as `DSA`, and `AES128-SHA` was not
 recognised as AES-128 — both fixed and covered by regression tests.
 
 ### B. E2 — Real-world TLS survey
+
+> **Regeneration command:** `python -m scanner.cli scan-tranco --n 100 --seed 413 --pool 10000 --run-id e2-tranco && python -m scanner.cli score --run-id e2-tranco --all-scenarios`
 
 Sample: 100 domains drawn with seed 413 from the top 10,000 Tranco entries
 (1,000,000 entries downloaded). The sample is reproducible.
@@ -536,6 +540,8 @@ observations, not verified organisation-specific priorities.
 
 ### C. E3 — Classical versus post-quantum algorithms
 
+> **Regeneration command:** `python -m lab.bench --run-id e3-bench` (or `docker compose run --rm tools python -m lab.bench --run-id e3-bench`).
+
 Measured with `openssl speed -elapsed -seconds 2`. Mean milliseconds are
 `1000 / ops_per_s`.
 
@@ -575,6 +581,8 @@ while replacing signatures is the expensive part.
 
 ### D. E4 — Hybrid handshake overhead
 
+> **Regeneration command:** `python -m lab.e4_handshake` (or `docker compose run --rm tools python -m lab.e4_handshake`).
+
 Two lab servers differ only in key-exchange group: port 8443 (X25519) and port
 8447 (X25519 + ML-KEM-768). Timing used `openssl s_time -new`; byte counts sum
 TLS message lengths up to the first application-data record.
@@ -595,6 +603,8 @@ trips. The result supports the deployment pattern observed in E2, where hybrid
 key exchange is already widespread on public hosts.
 
 ### E5 — Constrained resources
+
+> **Regeneration command:** `docker run --rm --cpus=0.5 --memory=256m -v "$PWD:/app" -w /app quantumaudit/tools:latest python -m lab.bench --constrained --run-id e5-constrained`
 
 The E3 harness was repeated with `--cpus=0.5 --memory=256m`.
 
@@ -622,6 +632,8 @@ divides by CPU time; adding `-elapsed` fixed the measurement
 (`DEVIATIONS.md` §1.6). Reporting the artefact would have been a false result.
 
 ### F. E6 — Sensitivity analysis
+
+> **Regeneration command:** `python -m scanner.cli sensitivity --run-id e2-tranco` (or with `docker compose run --rm tools`).
 
 Migration time is fixed at 3 years. Shelf life varies over 5/10/15/25 years;
 quantum horizon over 10/15/20 years.
@@ -673,9 +685,11 @@ scenario and therefore cannot prioritise at all.
 
 ### G. Test suite
 
+> **Regeneration command:** `python -m pytest tests -q` (or in Docker: `docker compose run --rm tools python -m pytest tests -q`).
+
 ```
-docker compose run --rm tools python -m pytest tests -q
-61 passed
+python -m pytest tests -q
+74 passed
 ```
 
 The suite covers the classifier (including the `ML-DSA`/`DSA` and
@@ -823,14 +837,55 @@ editing command-line defaults.
 
 ---
 
-## Appendix A — Deviations and Reproducibility
+## Appendix A — Reproducibility Appendix
 
-Every difference between this implementation and the design guide is recorded
-in [`DEVIATIONS.md`](DEVIATIONS.md), including corrected OpenSSL algorithm names,
-the schema split, the `-elapsed` timing fix, the lab certificate-generator fix,
-the E2 scope decision, the E4 measurement method and the classifier
-corrections. Every measured number in this report is reproduced by the commands
-in [`results.md`](results.md).
+Every measured number, benchmark score and distribution table in this report is
+fully reproducible. All deviations from the initial design guide are recorded in
+[`DEVIATIONS.md`](DEVIATIONS.md). Detailed environment outputs and execution
+logs are mirrored in [`results.md`](results.md).
+
+### 1. Execution Environment
+
+| Component | Standard Container Environment | Local Python Alternative |
+|---|---|---|
+| Platform | Docker 29.9+ (`quantumaudit/tools:latest`) | macOS / Linux host |
+| Base OS | Debian 13 (Trixie) slim | macOS / Linux |
+| Python | 3.13.5 (in container) | 3.11+ via `requirements.txt` |
+| OpenSSL | 3.5.7 (native ML-KEM, ML-DSA, hybrid groups) | System OpenSSL 3.4+ |
+| Cryptography | `cryptography >= 44.0` | `cryptography >= 44.0` |
+| Storage | SQLite 3 (`data/quantumaudit.db`) | SQLite 3 (`data/quantumaudit.db`) |
+
+### 2. Table-to-Command Reproduction Matrix
+
+The following matrix maps every experimental result table in Section V to its
+exact executable command, required prerequisites, and generated artifacts:
+
+| Report Section & Table | Description | Prerequisites | Exact Execution Command | Output Artifact |
+|---|---|---|---|---|
+| **V.A (E1)** | Scanner accuracy against 20 controlled lab servers | `docker compose up -d lab` | `python -m lab.evaluate` | Manifest diff table (100% exact match) |
+| **V.B (E2)** Reachability | 100 Tranco domain connection outcomes | Internet reachability | `python -m scanner.cli scan-tranco --n 100 --seed 413 --pool 10000 --run-id e2-tranco` | `findings` table in `data/quantumaudit.db` |
+| **V.B (E2)** Key Exchange | Hybrid vs classical key-exchange distribution | `e2-tranco` scan | `python -m scanner.cli score --run-id e2-tranco --all-scenarios` | `scores` table (44 hybrid, 29 vulnerable) |
+| **V.B (E2)** Protocols & Certs | TLS version and certificate algorithm breakdown | `e2-tranco` scan | `python -m scanner.cli score --run-id e2-tranco --all-scenarios` | Grouped query results in SQLite |
+| **V.B (E2)** Risk Classification | Contextual vs naive risk verdict comparison | `e2-tranco` scan | `python -m scanner.cli score --run-id e2-tranco --all-scenarios` | 44 low, 29 high vs 73 naive high |
+| **V.C (E3)** Throughput | Classical vs PQ ops/sec (RSA, P-256, ML-KEM, ML-DSA) | OpenSSL 3.5+ speed | `python -m lab.bench --run-id e3-bench` | Ops/sec and mean ms per algorithm |
+| **V.C (E3)** Sizes | Public key, private key, ciphertext/signature byte sizes | OpenSSL 3.5+ | `python -m lab.bench --run-id e3-bench` | Key and artifact size table |
+| **V.D (E4)** Handshake Overhead | Classical vs hybrid handshake time and wire bytes | Lab ports 8443, 8447 | `python -m lab.e4_handshake` | +0.8% duration, +80.9% wire bytes |
+| **V.E (E5)** Constrained Scaling | Benchmark under 0.5 CPU cores and 256MB RAM | Docker container limits | `docker run --rm --cpus=0.5 --memory=256m -v "$PWD:/app" -w /app quantumaudit/tools:latest python -m lab.bench --constrained --run-id e5-constrained` | Constrained ops/sec & ~2x slowdown ratio |
+| **V.F (E6)** Sensitivity (Lab) | E1 lab run scenario verdict transitions | `e1-lab` scored | `python -m scanner.cli sensitivity --run-id e1-lab` | 13 verdict changes |
+| **V.F (E6)** Sensitivity (Tranco) | E2 Tranco run scenario verdict transitions | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | 29 verdict changes (39.7% of hosts) |
+| **V.F (E6)** Full Grid | 12-cell shelf life × quantum horizon distribution | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | Scenario distribution grid |
+| **V.G** Test Suite | Full test suite across scanner, scoring, and dashboard | Python venv / Docker | `python -m pytest tests -q` | 74 passing unit & integration tests |
+
+### 3. Determinism and Data Integrity
+
+- **Tranco Seed Determinism:** The real-world survey in E2 uses seed `413` over
+  a 10,000 domain pool downloaded from the Tranco research list. Rerunning with
+  `--seed 413` draws the exact same list of 100 domain names.
+- **Controlled Lab Baseline:** All 20 synthetic test servers run inside the
+  isolated Docker compose network with pinned certificate configurations.
+- **Timing Reliability:** OpenSSL benchmarks in E3 and E5 enforce the `-elapsed`
+  flag to measure elapsed wall-clock time rather than CPU slice time, avoiding
+  virtualization scaling artefacts.
 
 ## Appendix B — AI-use disclosure
 
