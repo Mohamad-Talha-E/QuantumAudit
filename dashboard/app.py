@@ -274,6 +274,16 @@ def api_summary(
     return summary
 
 
+def _assert_run_exists(run_id: str) -> None:
+    conn = _connect()
+    row = conn.execute(
+        "SELECT 1 FROM findings WHERE run_id = ? LIMIT 1", (run_id,)
+    ).fetchone()
+    conn.close()
+    if not row:
+        raise HTTPException(status_code=404, detail=f"Run {run_id!r} not found")
+
+
 @app.get("/api/findings")
 def api_findings(
     run_id: str,
@@ -282,18 +292,24 @@ def api_findings(
     offset: int = Query(0, ge=0),
     q: str | None = Query(None, description="Case-insensitive text filter"),
 ) -> dict:
+    _assert_run_exists(run_id)
+    limit_val = limit if isinstance(limit, int) else 100
+    offset_val = offset if isinstance(offset, int) else 0
+    scenario_val = scenario if isinstance(scenario, str) else DEFAULT_SCENARIO
+    q_val = q if isinstance(q, str) else None
     return {
         "run_id": run_id,
-        "scenario": scenario,
-        "limit": limit,
-        "offset": offset,
-        "q": q,
-        "findings": run_findings(run_id, scenario, limit, offset, q),
+        "scenario": scenario_val,
+        "limit": limit_val,
+        "offset": offset_val,
+        "q": q_val,
+        "findings": run_findings(run_id, scenario_val, limit_val, offset_val, q_val),
     }
 
 
 @app.get("/api/sensitivity")
 def api_sensitivity(run_id: str) -> dict:
+    _assert_run_exists(run_id)
     table = build_table(run_id, db=DB_PATH)
     return {
         "run_id": run_id,
