@@ -189,7 +189,7 @@ docker compose run --rm tools python -m scanner.cli scan-tranco \
 | **E6 — sensitivity** | **29 of 73** hosts (39.7%) change risk class between extreme planning scenarios; the naive rule calls all 73 high |
 
 Full tables, environment details and the commands that produced them are in
-[`results.md`](results.md).
+[`results.md`](results.md) and the [Reproducibility Appendix in REPORT.md](REPORT.md#appendix-a--reproducibility-appendix).
 
 ---
 
@@ -248,6 +248,7 @@ detection and the fact that lab ML-DSA certificates are signed by an RSA CA.
 | File | Contents |
 |---|---|
 | [`REPORT.md`](REPORT.md) | Full written report: literature, method, results, discussion |
+| [`REPORT.md` Appendix A](REPORT.md#appendix-a--reproducibility-appendix) | Reproducibility appendix: exact environment and table-to-command matrix |
 | [`results.md`](results.md) | Every measured number and the command that produced it |
 | [`DEVIATIONS.md`](DEVIATIONS.md) | Every difference from the design guide, with reasons |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Branch, commit, test and review workflow |
