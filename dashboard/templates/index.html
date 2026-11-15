@@ -86,7 +86,19 @@
       </section>
 
       <section class="panel">
-        <h2>Findings</h2>
+        <div class="panel-header">
+          <h2>Findings</h2>
+          <div class="table-toolbar">
+            <div class="search-box">
+              <input type="search" id="findings-search" placeholder="Search host, kx, cert, cipher..." aria-label="Search findings" autocomplete="off">
+            </div>
+            <div class="pagination">
+              <button type="button" id="findings-prev" class="btn" disabled>&larr; Prev</button>
+              <span id="findings-page-info" class="page-info">Page 1</span>
+              <button type="button" id="findings-next" class="btn" disabled>Next &rarr;</button>
+            </div>
+          </div>
+        </div>
         <div class="scroll">
           <table>
             <thead>
@@ -117,8 +129,15 @@
     const scenarioSelect = document.getElementById("scenario-select");
     const content = document.getElementById("content");
     const empty = document.getElementById("empty");
+    const searchInput = document.getElementById("findings-search");
+    const prevBtn = document.getElementById("findings-prev");
+    const nextBtn = document.getElementById("findings-next");
+    const pageInfo = document.getElementById("findings-page-info");
 
     let current = null;
+    let findingsOffset = 0;
+    const FINDINGS_PAGE_SIZE = 50;
+    let findingsSearchDebounce = null;
 
     function escapeHtml(value) {
       return String(value ?? "").replace(/[&<>"']/g, ch => ({
@@ -206,18 +225,39 @@
     }
 
     async function loadFindings(runId, scenario) {
-      const url = `/api/findings?run_id=${encodeURIComponent(runId)}` +
-                  `&scenario=${encodeURIComponent(scenario)}&limit=500`;
+      const q = searchInput ? searchInput.value.trim() : "";
+      let url = `/api/findings?run_id=${encodeURIComponent(runId)}` +
+                `&scenario=${encodeURIComponent(scenario)}` +
+                `&limit=${FINDINGS_PAGE_SIZE}&offset=${findingsOffset}`;
+      if (q) {
+        url += `&q=${encodeURIComponent(q)}`;
+      }
       const response = await fetch(url);
       const data = await response.json();
       const body = document.getElementById("findings-body");
+      const findings = data.findings || [];
 
-      if (!data.findings.length) {
-        body.innerHTML = `<tr><td colspan="7" class="muted">No rows.</td></tr>`;
+      const currentPage = Math.floor(findingsOffset / FINDINGS_PAGE_SIZE) + 1;
+      if (pageInfo) {
+        if (findings.length === 0 && findingsOffset === 0) {
+          pageInfo.textContent = "0 findings";
+        } else {
+          pageInfo.textContent = `Page ${currentPage} (${findingsOffset + 1}–${findingsOffset + findings.length})`;
+        }
+      }
+      if (prevBtn) {
+        prevBtn.disabled = (findingsOffset === 0);
+      }
+      if (nextBtn) {
+        nextBtn.disabled = (findings.length < FINDINGS_PAGE_SIZE);
+      }
+
+      if (!findings.length) {
+        body.innerHTML = `<tr><td colspan="7" class="muted">No matching findings.</td></tr>`;
         return;
       }
 
-      body.innerHTML = data.findings.map(row => {
+      body.innerHTML = findings.map(row => {
         const cert = row.cert_alg
           ? `${escapeHtml(row.cert_alg)}${row.key_size ? " " + row.key_size : ""}`
           : "&mdash;";
@@ -239,11 +279,45 @@
       }).join("");
     }
 
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (findingsOffset > 0 && current) {
+          findingsOffset = Math.max(0, findingsOffset - FINDINGS_PAGE_SIZE);
+          loadFindings(runSelect.value, scenarioSelect.value || current.scenario);
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (current) {
+          findingsOffset += FINDINGS_PAGE_SIZE;
+          loadFindings(runSelect.value, scenarioSelect.value || current.scenario);
+        }
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        clearTimeout(findingsSearchDebounce);
+        findingsSearchDebounce = setTimeout(() => {
+          findingsOffset = 0;
+          if (current) {
+            loadFindings(runSelect.value, scenarioSelect.value || current.scenario);
+          }
+        }, 200);
+      });
+    }
+
     runSelect.addEventListener("change", () => {
+      findingsOffset = 0;
       scenarioSelect.innerHTML = "";
       loadSummary();
     });
-    scenarioSelect.addEventListener("change", loadSummary);
+    scenarioSelect.addEventListener("change", () => {
+      findingsOffset = 0;
+      loadSummary();
+    });
 
     loadRuns();
   </script>

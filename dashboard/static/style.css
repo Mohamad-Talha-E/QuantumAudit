@@ -155,6 +155,78 @@ tbody tr:hover { background: #f8fafc; }
 .muted { color: var(--muted); }
 .scroll { max-height: 560px; overflow: auto; border-radius: 8px; }
 
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-header h2 {
+  margin: 0;
+}
+
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box input[type="search"] {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  width: 240px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-box input[type="search"]:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.15);
+}
+
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination .page-info {
+  font-size: 0.8rem;
+  color: var(--muted);
+  min-width: 80px;
+  text-align: center;
+}
+
+.btn {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: #f1f4f8;
+  border-color: #cbd5e1;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); }
 .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; }
 
