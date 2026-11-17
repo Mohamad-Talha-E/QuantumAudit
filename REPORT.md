@@ -874,7 +874,7 @@ exact executable command, required prerequisites, and generated artifacts:
 | **V.F (E6)** Sensitivity (Lab) | E1 lab run scenario verdict transitions | `e1-lab` scored | `python -m scanner.cli sensitivity --run-id e1-lab` | 13 verdict changes |
 | **V.F (E6)** Sensitivity (Tranco) | E2 Tranco run scenario verdict transitions | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | 29 verdict changes (39.7% of hosts) |
 | **V.F (E6)** Full Grid | 12-cell shelf life × quantum horizon distribution | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | Scenario distribution grid |
-| **V.G** Test Suite | Full test suite across scanner, scoring, and dashboard | Python venv / Docker | `python -m pytest tests -q` | 74 passing unit & integration tests |
+| **V.G** Test Suite | Full test suite across scanner, scoring, and dashboard | Python venv / Docker | `python -m pytest tests -q` | 80 passing unit & integration tests |
 
 ### 3. Determinism and Data Integrity
 
