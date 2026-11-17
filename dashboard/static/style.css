@@ -43,6 +43,27 @@ header p {
   font-size: 0.85rem;
 }
 
+.nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav a {
+  color: #9fb0c7;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav a:hover, .nav a.active {
+  color: #ffffff;
+  background: #1b2b44;
+}
+
 .controls { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .controls label {
@@ -232,6 +253,47 @@ tbody tr:hover { background: #f8fafc; }
 
 .error { color: var(--red); }
 .empty { padding: 40px; text-align: center; color: var(--muted); }
+
+.formula-box {
+  background: #f0f4f8;
+  border-left: 4px solid var(--blue);
+  padding: 12px 18px;
+  margin: 14px 0 16px;
+  border-radius: 0 6px 6px 0;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section h3 {
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.section p, .section ul {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.section ul {
+  padding-left: 24px;
+}
+
+.section li {
+  margin-bottom: 6px;
+}
 
 footer {
   padding: 18px 28px 40px;
