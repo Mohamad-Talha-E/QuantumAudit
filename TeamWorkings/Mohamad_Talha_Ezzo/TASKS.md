@@ -24,7 +24,7 @@ commit below.
 | T2 | **Add retry with backoff for transient failures.** Retry DNS/timeout errors up to 2 extra times with a short, jittered delay. Keep permanent TLS errors non-retried. | A host that times out twice then succeeds is recorded `ok`; a host that always times out is recorded `error` with the attempt count; unit tests use a fake scanner function. | ☐ |
 | T3 | **Add an export command.** Write one run to CSV or JSON for analysis outside SQLite. | `python -m scanner.cli export --run-id e2-tranco --format csv` writes `data/exports/e2-tranco.csv`; `--format json` writes the same rows as JSON; tests check headers and row counts. | ☐ |
 | T4 | **Harden target parsing and document the scanner.** Cover bracketed IPv6, bare IPv6, hostnames with trailing dots, and SNI behaviour for IP literals. Add `scanner/README.md`. | New parametrised cases in `tests/test_scan.py`; SNI is not sent for IP literals; `scanner/README.md` documents every subcommand and the error categories. | ☐ |
-| T5 | **Document the data model.** Add a short `scanner/SCHEMA.md` describing `findings`, `scores` and `bench`, including the upsert key and why error rows are kept. | The document matches `scanner/db.py`; a test asserts the documented table and column names exist. | ☐ |
+| T5 | **Document the data model.** Add a short `scanner/SCHEMA.md` describing `findings`, `scores` and `bench`, including the upsert key and why error rows are kept. | The document matches `scanner/db.py`; a test asserts the documented table and column names exist. | ☑ |
 
 ---
 
@@ -32,7 +32,7 @@ commit below.
 
 | Date | Commit | Task | What changed | Tests |
 |---|---|---|---|---|
-| | | | | |
+| 2026-11-17 | `08d22c9` | T5 | Added `scanner/SCHEMA.md` and a test that keeps it in step with `db.py` | 66 passed |
 
 ---
 
