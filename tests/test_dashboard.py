@@ -95,3 +95,42 @@ def test_runs_list(seeded):
     assert len(runs) == 1
     assert runs[0]["run_id"] == "run-demo"
     assert runs[0]["hosts"] == 3
+
+
+def test_findings_filter_by_host(seeded):
+    rows = dashboard_app.run_findings(
+        "run-demo", "x15_y3_z15", limit=10, offset=0, q="pq.example"
+    )
+    assert [row["host"] for row in rows] == ["pq.example"]
+
+
+def test_findings_filter_by_algorithm(seeded):
+    rows = dashboard_app.run_findings(
+        "run-demo", "x15_y3_z15", limit=10, offset=0, q="MLKEM"
+    )
+    assert rows
+    assert all("MLKEM" in (row["kx_group"] or "") for row in rows)
+
+
+def test_findings_filter_is_case_insensitive(seeded):
+    rows = dashboard_app.run_findings(
+        "run-demo", "x15_y3_z15", limit=10, offset=0, q="PQ.EXAMPLE"
+    )
+    assert [row["host"] for row in rows] == ["pq.example"]
+
+
+def test_findings_pagination_is_stable(seeded):
+    first = dashboard_app.run_findings("run-demo", "x15_y3_z15", limit=1, offset=0)
+    second = dashboard_app.run_findings("run-demo", "x15_y3_z15", limit=1, offset=1)
+    assert len(first) == 1
+    assert len(second) == 1
+    assert first[0]["host"] != second[0]["host"]
+
+
+def test_findings_q_is_passed_through_api(seeded):
+    payload = dashboard_app.api_findings(
+        run_id="run-demo", scenario="x15_y3_z15", limit=10, offset=0, q="pq"
+    )
+    assert payload["q"] == "pq"
+    assert len(payload["findings"]) == 1
+
