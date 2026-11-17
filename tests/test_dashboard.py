@@ -275,6 +275,24 @@ def test_unknown_run_raises_404_on_all_endpoints(seeded):
     assert exc_sensitivity.value.status_code == 404
 
 
+def test_reproducibility_appendix_and_links():
+    from pathlib import Path
+
+    repo_root = Path(__file__).parent.parent
+    report = (repo_root / "REPORT.md").read_text(encoding="utf-8")
+    results = (repo_root / "results.md").read_text(encoding="utf-8")
+    readme = (repo_root / "README.md").read_text(encoding="utf-8")
+
+    assert "## Appendix A — Reproducibility Appendix" in report
+    assert "Table-to-Command Reproduction Matrix" in report
+    assert "Regeneration command:" in report
+
+    assert "## 9. Reproducibility Index (Table-to-Command Mapping)" in results
+
+    assert "REPORT.md#appendix-a--reproducibility-appendix" in readme
+
+
+
 
 
 

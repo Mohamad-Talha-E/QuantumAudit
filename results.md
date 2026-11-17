@@ -342,3 +342,21 @@ dashboard's JSON safety.
 7. **Risk verdicts are assumption-dependent** — 39.7% of reachable hosts
    change class between extreme planning scenarios, while the naive rule calls
    all 100% high and therefore cannot prioritise.
+
+---
+
+## 9. Reproducibility Index (Table-to-Command Mapping)
+
+Every table and benchmark in this document can be regenerated using the following commands. Commands can be run either inside the Docker container (`docker compose run --rm tools <cmd>`) or in a local virtual environment with dependencies installed from `requirements.txt` (`python <cmd>`).
+
+| Table / Section | Topic | Exact Regeneration Command | Input & Prerequisites |
+|---|---|---|---|
+| **§1. E1** | Scanner ground-truth accuracy | `python -m lab.evaluate` | Lab servers running on ports 8443–8462 (`docker compose up -d lab`) |
+| **§2.1. E2** | Reachability (100 Tranco domains) | `python -m scanner.cli scan-tranco --n 100 --seed 413 --pool 10000 --run-id e2-tranco` | Network connectivity; seed `413` pinned |
+| **§2.2–2.4. E2** | Key exchange, certs & risk scoring | `python -m scanner.cli score --run-id e2-tranco --all-scenarios` | `e2-tranco` scan in `data/quantumaudit.db` |
+| **§3.1–3.2. E3** | Classical vs PQ benchmark & sizes | `python -m lab.bench --run-id e3-bench` | OpenSSL 3.5.7 with native ML-KEM/ML-DSA |
+| **§4. E4** | Hybrid handshake overhead | `python -m lab.e4_handshake` | Controlled lab servers on ports 8443 (X25519) and 8447 (X25519MLKEM768) |
+| **§5. E5** | Constrained resource scaling | `docker run --rm --cpus=0.5 --memory=256m -v "$PWD:/app" -w /app quantumaudit/tools:latest python -m lab.bench --constrained --run-id e5-constrained` | Docker container limits (`0.5` CPU, `256m` RAM) |
+| **§6.1. E6** | Sensitivity analysis (Lab run) | `python -m scanner.cli sensitivity --run-id e1-lab` | `e1-lab` scored database run |
+| **§6.2–6.3. E6** | Sensitivity grid (Tranco run) | `python -m scanner.cli sensitivity --run-id e2-tranco` | `e2-tranco` scored database run |
+| **§7.** | Test suite verification | `python -m pytest tests -q` | Local Python venv or Docker tools container |
