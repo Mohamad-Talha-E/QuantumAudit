@@ -211,5 +211,70 @@ def test_accessibility_features_in_html_and_css(seeded):
     assert "border-color" in css
 
 
+def test_api_findings_pagination_parameters(seeded):
+    first = dashboard_app.api_findings(
+        run_id="run-demo", scenario="x15_y3_z15", limit=1, offset=0
+    )
+    assert first["limit"] == 1
+    assert first["offset"] == 0
+    assert len(first["findings"]) == 1
+
+    second = dashboard_app.api_findings(
+        run_id="run-demo", scenario="x15_y3_z15", limit=1, offset=1
+    )
+    assert second["limit"] == 1
+    assert second["offset"] == 1
+    assert len(second["findings"]) == 1
+    assert first["findings"][0]["host"] != second["findings"][0]["host"]
+
+    empty = dashboard_app.api_findings(
+        run_id="run-demo", scenario="x15_y3_z15", limit=10, offset=100
+    )
+    assert empty["findings"] == []
+
+
+def test_api_sensitivity_response_shape(seeded):
+    payload = dashboard_app.api_sensitivity(run_id="run-demo")
+    required_keys = {
+        "run_id",
+        "hosts",
+        "flips",
+        "naive_high",
+        "optimistic",
+        "pessimistic",
+        "per_scenario",
+        "classes",
+    }
+    assert required_keys.issubset(payload.keys())
+    assert payload["run_id"] == "run-demo"
+    assert isinstance(payload["hosts"], int)
+    assert isinstance(payload["flips"], int)
+    assert isinstance(payload["naive_high"], int)
+    assert isinstance(payload["per_scenario"], dict)
+    assert isinstance(payload["classes"], dict)
+    assert len(payload["per_scenario"]) > 0
+
+    # Ensure JSON serializable
+    dumped = json.dumps(payload)
+    assert "run-demo" in dumped
+
+
+def test_unknown_run_raises_404_on_all_endpoints(seeded):
+    from fastapi import HTTPException
+
+    with pytest.raises(HTTPException) as exc_summary:
+        dashboard_app.api_summary(run_id="non-existent-run")
+    assert exc_summary.value.status_code == 404
+
+    with pytest.raises(HTTPException) as exc_findings:
+        dashboard_app.api_findings(run_id="non-existent-run")
+    assert exc_findings.value.status_code == 404
+
+    with pytest.raises(HTTPException) as exc_sensitivity:
+        dashboard_app.api_sensitivity(run_id="non-existent-run")
+    assert exc_sensitivity.value.status_code == 404
+
+
+
 
 
