@@ -19,7 +19,7 @@ commit below.
 
 | ID | Task | Acceptance criteria | Status |
 |---|---|---|---|
-| O1 | **Add a text filter to the findings API.** Add a case-insensitive `q` parameter to `/api/findings` and `run_findings`. | Filtering by host or algorithm returns only matching rows; the query is parameterised; tests cover `q`, case-insensitivity, `limit` and `offset`. | ☐ |
+| O1 | **Add a text filter to the findings API.** Add a case-insensitive `q` parameter to `/api/findings` and `run_findings`. | Filtering by host or algorithm returns only matching rows; the query is parameterised; tests cover `q`, case-insensitivity, `limit` and `offset`. | ☑ |
 | O1b | **Add search and paging controls to the dashboard.** Wire the new API parameters into the findings table. | A search box and previous/next buttons update the table without a full page reload; a manual check is recorded in the PR. | ☐ |
 | O2 | **Add a methodology page.** A `/methodology` page that states the Mosca formula, the class rules, the scenario defaults and the limitations. | Returns 200; contains the formula and the default scenario; a test checks the rendered text. | ☐ |
 | O3 | **Accessibility pass.** Add a table caption, explicit form labels, visible focus styles, and badges that do not rely on colour alone. | Manual checklist in the PR; no visual regression in the existing pages. | ☐ |
@@ -32,7 +32,7 @@ commit below.
 
 | Date | Commit | Task | What changed | Tests |
 |---|---|---|---|---|
-| | | | | |
+| 2026-11-15 | e8d0cad | O1 | Added q filter to findings API with pagination tests | 66 passed |
 
 ---
 

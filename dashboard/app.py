@@ -186,10 +186,33 @@ def run_summary(run_id: str, scenario: str = DEFAULT_SCENARIO) -> dict:
     }
 
 
-def run_findings(run_id: str, scenario: str, limit: int, offset: int) -> list[dict]:
+def run_findings(
+    run_id: str,
+    scenario: str,
+    limit: int,
+    offset: int,
+    q: str | None = None,
+) -> list[dict]:
+    """Return one page of findings, optionally filtered by a text query.
+
+    ``q`` is matched case-insensitively against the host, key-exchange group,
+    certificate algorithm and cipher. It is always passed as a SQL parameter,
+    never interpolated, so the query text cannot be injected.
+    """
     conn = _connect()
+    where = "f.run_id = ?"
+    params: list = [scenario, run_id]
+    if q:
+        where += (
+            " AND (f.host LIKE ? OR f.kx_group LIKE ?"
+            " OR f.cert_alg LIKE ? OR f.cipher LIKE ?)"
+        )
+        like = f"%{q}%"
+        params.extend([like, like, like, like])
+    params.extend([limit, offset])
+
     rows = conn.execute(
-        """
+        f"""
         SELECT f.host, f.port, f.protocol, f.cipher, f.kx_group, f.cert_alg,
                f.key_size, f.hybrid_flag, f.status, f.error,
                s.alg_class, s.score_contextual, s.score_naive,
@@ -197,14 +220,14 @@ def run_findings(run_id: str, scenario: str, limit: int, offset: int) -> list[di
         FROM findings f
         LEFT JOIN scores s
                ON s.finding_id = f.id AND s.scenario = ?
-        WHERE f.run_id = ?
+        WHERE {where}
         ORDER BY
             CASE s.score_contextual
                 WHEN 'high' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END,
             f.host
         LIMIT ? OFFSET ?
         """,
-        (scenario, run_id, limit, offset),
+        params,
     ).fetchall()
     conn.close()
     return [dict(row) for row in rows]
@@ -248,13 +271,15 @@ def api_findings(
     scenario: str = Query(DEFAULT_SCENARIO),
     limit: int = Query(100, ge=1, le=1000),
     offset: int = Query(0, ge=0),
+    q: str | None = Query(None, description="Case-insensitive text filter"),
 ) -> dict:
     return {
         "run_id": run_id,
         "scenario": scenario,
         "limit": limit,
         "offset": offset,
-        "findings": run_findings(run_id, scenario, limit, offset),
+        "q": q,
+        "findings": run_findings(run_id, scenario, limit, offset, q),
     }
 
 
