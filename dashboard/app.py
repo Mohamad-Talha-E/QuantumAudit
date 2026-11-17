@@ -246,6 +246,15 @@ def index(request: Request) -> HTMLResponse:
     )
 
 
+@app.get("/methodology", response_class=HTMLResponse)
+def methodology(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="methodology.html",
+        context={"default_scenario": DEFAULT_SCENARIO},
+    )
+
+
 @app.get("/api/runs")
 def api_runs() -> dict:
     return {"runs": list_runs()}
