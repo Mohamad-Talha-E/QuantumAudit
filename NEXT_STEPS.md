@@ -3,12 +3,12 @@
 This file is the project's memory. If a chat is lost, this file still says where
 the work stands and what to do next.
 
-**Last verified:** 2026-11-15
+**Last verified:** 2026-11-17
 **Branch:** `build/full-system`
-**Last feature commit:** `f3766d2` — `docs(team): add 30-minute per-member handoffs`
+**Last feature commit:** `a350d91` — merge of PR #7, T5 schema docs
 **Continuation docs added in:** `abe7ab3`
 **Pushed:** yes, `origin/build/full-system`
-**Tests:** `61 passed`
+**Tests:** `66 passed` (61 + 5 from T5)
 **`main`:** untouched. It has **not** been merged into yet.
 
 To see the current HEAD, run `git log --oneline -3`. This file may have a later
@@ -27,11 +27,11 @@ Read this file first, then `TeamWorkings/README.md`.
 | Lab (`lab/`) | Working. 20 TLS servers, E1/E3/E4/E5. |
 | Dashboard (`dashboard/`) | Working. FastAPI + server-side PNG charts. |
 | Experiments E1–E6 | Done. Numbers in `results.md`. |
-| Tests | 61 passing. |
+| Tests | 66 passing. |
 | Documentation | `README.md`, `REPORT.md`, `results.md`, `DEVIATIONS.md`. |
 | Team ownership | `TeamWorkings/`, `CODEOWNERS`, `CONTRIBUTING.md`. |
-| Per-member handoffs | Written and dry-run together: **84 passed**. |
-| Teammate commits | **None yet.** Each member must run their own handoff. |
+| Per-member handoffs | Written and dry-run together: **84 was the projection**. Real totals are measured, not assumed — see §4. |
+| Teammate commits | T5 merged (PR #7). Bahaa, Ahmad and Omar still to merge. Omar has PRs #1–#6 open, stacked. |
 | Merge to `main` | **Not done.** Deliberate. |
 | Submission packaging | **Not done.** |
 
@@ -233,8 +233,10 @@ commit on their behalf; that would make the contribution history false.
 
 ### Expected result
 
-Each handoff adds its own tests on top of the 61. All four together produce
-**84 passed**. A single handoff should pass 61 plus its own new tests.
+Each handoff adds its own tests on top of the current base. **84 was only a
+projection** from one task each (61 + 23). Omar took further tasks (O1b–O5), so
+the real total is higher. Measure it on `build/full-system` after the last
+merge and record that number — never quote a projection as a result.
 
 ### Merge order (suggested)
 
