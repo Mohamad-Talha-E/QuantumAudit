@@ -187,4 +187,29 @@ def test_methodology_page_renders_formula_and_defaults():
     assert "Handshake Only" in html
 
 
+def test_accessibility_features_in_html_and_css(seeded):
+    from pathlib import Path
+    from starlette.requests import Request
+
+    req = Request({"type": "http", "method": "GET", "path": "/", "headers": []})
+    resp = dashboard_app.index(req)
+    assert resp.status_code == 200
+    html = resp.body.decode("utf-8")
+    assert "<caption" in html
+    assert 'for="run-select"' in html
+    assert 'for="scenario-select"' in html
+    assert 'for="findings-search"' in html
+
+    m_resp = dashboard_app.methodology(req)
+    assert m_resp.status_code == 200
+    m_html = m_resp.body.decode("utf-8")
+    assert "<caption" in m_html
+
+    css_path = Path(__file__).parent.parent / "dashboard" / "static" / "style.css"
+    css = css_path.read_text(encoding="utf-8")
+    assert ":focus-visible" in css
+    assert "border-color" in css
+
+
+
 
