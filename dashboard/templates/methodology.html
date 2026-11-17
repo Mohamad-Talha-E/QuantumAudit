@@ -48,6 +48,7 @@
           Every scanned host is categorized into one of five cryptographic classes based on its negotiated TLS handshake and certificate:
         </p>
         <table>
+          <caption class="sr-only">Cryptographic algorithm classification rules and criteria</caption>
           <thead>
             <tr>
               <th>Class</th>
@@ -58,31 +59,31 @@
           </thead>
           <tbody>
             <tr>
-              <td><span class="badge high">vulnerable</span></td>
+              <td><span class="badge high"><span aria-hidden="true">▲ </span>vulnerable</span></td>
               <td>Classical asymmetric cryptography only</td>
               <td>Classical key exchange (e.g., X25519, P-256, RSA) and/or classical certificate (RSA, ECDSA).</td>
               <td>Replace classical key exchange with ML-KEM or hybrid X25519MLKEM768; plan certificate migration.</td>
             </tr>
             <tr>
-              <td><span class="badge low">hybrid</span></td>
+              <td><span class="badge low"><span aria-hidden="true">✓ </span>hybrid</span></td>
               <td>Combination of post-quantum and classical algorithms</td>
               <td>PQ-hybrid key exchange (e.g., X25519MLKEM768, SecP256r1MLKEM768) with classical or hybrid certificate.</td>
               <td>No immediate action needed; monitor standardization and complete certificate chain upgrade.</td>
             </tr>
             <tr>
-              <td><span class="badge low">resistant</span></td>
+              <td><span class="badge low"><span aria-hidden="true">✓ </span>resistant</span></td>
               <td>Full post-quantum protection</td>
               <td>Pure post-quantum key exchange (ML-KEM) and post-quantum certificate (ML-DSA / Falcon).</td>
               <td>Fully protected against quantum cryptanalysis; maintain regular standard reviews.</td>
             </tr>
             <tr>
-              <td><span class="badge medium">weakened</span></td>
+              <td><span class="badge medium"><span aria-hidden="true">◆ </span>weakened</span></td>
               <td>Weak symmetric encryption or hashing</td>
               <td>Legacy ciphers (e.g., 3DES, RC4, AES-128, SHA-1).</td>
               <td>Upgrade to AES-256 and SHA-2 / SHA-3 to preserve 128-bit security against Grover's algorithm.</td>
             </tr>
             <tr>
-              <td><span class="badge unknown">unknown</span></td>
+              <td><span class="badge unknown"><span aria-hidden="true">? </span>unknown</span></td>
               <td>Handshake error or unclassified cipher</td>
               <td>Connection timeout, TLS alert, or unrecognized cipher suite.</td>
               <td>Manual review of host configuration and reachability.</td>
