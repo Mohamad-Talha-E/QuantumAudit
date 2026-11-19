@@ -188,7 +188,8 @@
       const runId = runSelect.value;
       if (!runId) return;
       const scenario = scenarioSelect.value;
-      const url = `api/summary_${encodeURIComponent(runId)}__${encodeURIComponent(scenario || "")}.json`;
+      const activeScenario = scenario || "x15_y3_z15";
+      const url = `api/summary_${encodeURIComponent(runId)}__${encodeURIComponent(activeScenario)}.json`;
       const response = await fetch(url);
       if (!response.ok) {
         empty.hidden = false;
