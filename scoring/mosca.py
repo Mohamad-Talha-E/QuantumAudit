@@ -35,8 +35,28 @@ MIGRATION_STEP = {
 }
 
 
+def validate_planning(
+    shelf_life_years: int, migration_years: int, quantum_years: int
+) -> None:
+    """Reject planning inputs that cannot describe a real scenario.
+
+    Raises ``ValueError`` with a message a user can act on. A negative or zero
+    time horizon makes the Mosca inequality meaningless, and a migration time
+    longer than the horizon means there is no safe window at all.
+    """
+    if shelf_life_years <= 0:
+        raise ValueError("shelf life must be greater than 0 years")
+    if quantum_years <= 0:
+        raise ValueError("quantum horizon must be greater than 0 years")
+    if migration_years < 0:
+        raise ValueError("migration time cannot be negative")
+    if migration_years >= quantum_years:
+        raise ValueError("migration time must be shorter than the quantum horizon")
+
+
 def scenario_name(shelf_life: int, migration: int, horizon: int) -> str:
     """Stable key for a planning scenario, e.g. ``x15_y3_z15``."""
+    validate_planning(shelf_life, migration, horizon)
     return f"x{shelf_life}_y{migration}_z{horizon}"
 
 
@@ -52,6 +72,7 @@ def score(
     quantum_years: int = DEFAULT_HORIZON,
 ) -> tuple[str, str, str]:
     """Return ``(level, reason, migration_step)`` for one scanned host."""
+    validate_planning(shelf_life_years, migration_years, quantum_years)
     alg_class = classify(record)
     window = safe_window(migration_years, quantum_years)
 
