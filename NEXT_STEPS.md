@@ -3,16 +3,15 @@
 This file is the project's memory. If a chat is lost, this file still says where
 the work stands and what to do next.
 
-**Last verified:** 2026-11-17
+**Last verified:** 2026-11-19
 **Branch:** `build/full-system`
-**Last feature commit:** `a350d91` — merge of PR #7, T5 schema docs
+**Last merge commit:** `9b787cf` — merge of PR #9, A1 benchmark summary
 **Continuation docs added in:** `abe7ab3`
 **Pushed:** yes, `origin/build/full-system`
-**Tests:** `66 passed` (61 + 5 from T5)
+**Tests:** `93 passed` (61 at E1-E6 measurement, 66 at `1795d0f`, 80 at `1d5c5dd`)
 **`main`:** untouched. It has **not** been merged into yet.
 
-To see the current HEAD, run `git log --oneline -3`. This file may have a later
-docs-only commit than the two hashes above.
+To see the current HEAD, run `git log --oneline -3`.
 
 Read this file first, then `TeamWorkings/README.md`.
 
@@ -27,11 +26,11 @@ Read this file first, then `TeamWorkings/README.md`.
 | Lab (`lab/`) | Working. 20 TLS servers, E1/E3/E4/E5. |
 | Dashboard (`dashboard/`) | Working. FastAPI + server-side PNG charts. |
 | Experiments E1–E6 | Done. Numbers in `results.md`. |
-| Tests | 66 passing. |
+| Tests | 93 passing at `9b787cf`. |
 | Documentation | `README.md`, `REPORT.md`, `results.md`, `DEVIATIONS.md`. |
 | Team ownership | `TeamWorkings/`, `CODEOWNERS`, `CONTRIBUTING.md`. |
-| Per-member handoffs | Written and dry-run together: **84 was the projection**. Real totals are measured, not assumed — see §4. |
-| Teammate commits | T5 merged (PR #7). Bahaa, Ahmad and Omar still to merge. Omar has PRs #1–#6 open, stacked. |
+| Per-member handoffs | All four members merged. **84 was the projection.** The measured total is 93 — see §4. |
+| Teammate commits | All PRs merged: #7 Talha, #1-#6 Omar, #8 Bahaa, #9 Ahmad. |
 | Merge to `main` | **Not done.** Deliberate. |
 | Submission packaging | **Not done.** |
 
@@ -233,20 +232,20 @@ commit on their behalf; that would make the contribution history false.
 
 ### Expected result
 
-Each handoff adds its own tests on top of the current base. **84 was only a
-projection** from one task each (61 + 23). Omar took further tasks (O1b–O5), so
-the real total is higher. Measure it on `build/full-system` after the last
-merge and record that number — never quote a projection as a result.
+Each handoff added its own tests on top of the current base. **84 was only a
+projection** from one task each (61 + 23). Omar took further tasks (O1b–O5).
+The measured total after all merges is **93 passed** at `9b787cf`. Never quote
+a projection as a result.
 
-### Merge order (suggested)
+### Merge order (completed)
 
-1. Talha (schema docs) — documentation only, lowest risk.
-2. Bahaa (scoring validation) — touches scoring inputs.
-3. Ahmad (lab parsing) — touches lab helper and a new test file.
-4. Omar (dashboard filter) — touches the API query.
+1. Talha (schema docs) — PR #7.
+2. Omar (dashboard and docs) — PRs #1–#6.
+3. Bahaa (scoring validation) — PR #8, 90 passed on its branch.
+4. Ahmad (benchmark summary) — PR #9, 83 passed on its branch.
 
-After each merge, pull `build/full-system` into the next branch, resolve
-conflicts if any, and rerun the full suite.
+After each merge, the full suite was rerun in Docker. The combined suite gives
+93 passed.
 
 ---
 
@@ -259,17 +258,17 @@ Copy this checklist into the chat when you resume.
 - [x] Replace placeholder GitHub handles in `.github/CODEOWNERS`.
 - [x] Replace `your-github-email@example.com` in Bahaa's, Ahmad's and Omar's
       `HANDOFF.md` and `TASKS.md`.
-- [ ] Talha runs T5 and commits.
-- [ ] Bahaa runs B1 and commits.
-- [ ] Ahmad runs A1/A1b and commits.
-- [ ] Omar runs O1/O1b and commits.
-- [ ] Each member pushes and opens a PR.
-- [ ] Review each PR against `CONTRIBUTING.md`.
-- [ ] Merge all four into `build/full-system`.
-- [ ] Confirm the suite is `84 passed` on `build/full-system`.
-- [ ] Update `results.md` §7 and the README test count from 61 to 84.
-- [ ] Update `TeamWorkings/README.md` if the dry-run wording needs to become
-      "merged".
+- [x] Talha runs T5 and commits.
+- [x] Bahaa runs B1 and commits.
+- [x] Ahmad runs A1 and commits.
+- [x] Omar runs O1–O5 and commits.
+- [x] Each member pushes and opens a PR.
+- [x] Review each PR against `CONTRIBUTING.md`.
+- [x] Merge all four into `build/full-system`.
+- [x] Confirm the suite is `93 passed` at `9b787cf` on `build/full-system`.
+- [ ] Update `results.md` §7 and the README test count from 61 to 93.
+- [ ] Update `TeamWorkings/README.md`: the dry-run wording and the 84 projection
+      are now stale.
 
 ### Priority 2 — Submission plumbing
 
@@ -296,8 +295,8 @@ Copy this checklist into the chat when you resume.
 
 - [ ] Add a GitHub Actions workflow: build the image and run `pytest`.
 - [ ] Add a short `README.md` inside each module.
-- [ ] Add a reproducibility appendix to `REPORT.md` mapping each table to its
-      command.
+- [x] Add a reproducibility appendix to `REPORT.md` mapping each table to its
+      command (PR #6).
 - [ ] Measure test coverage and record it.
 - [ ] Run a linter and fix real issues only.
 - [ ] Pin dependency versions in `requirements.txt` and the Dockerfile.
