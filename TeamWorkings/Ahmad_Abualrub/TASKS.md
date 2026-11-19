@@ -31,7 +31,7 @@ commit below.
 
 | Date | Commit | Task | What changed | Tests |
 |---|---|---|---|---|
-| | | | | |
+| 2026-11-03 | 9f9b4df | A1 | Added summarise() for benchmark variance and its tests | 83 passed |
 
 ---
 
