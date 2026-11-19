@@ -1,0 +1,171 @@
+:root {
+  --navy: #0f3557;
+  --navy-soft: #1b4f7e;
+  --accent: #b8462f;
+  --ink: #1d2833;
+  --muted: #5f7183;
+  --line: #d8e1ea;
+  --tint: #f2f6fa;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--white);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+
+a { color: var(--navy-soft); }
+a:hover { color: var(--accent); }
+
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #174e7c 100%);
+  color: var(--white);
+  padding: 68px 0 60px;
+}
+
+.hero a { color: var(--white); }
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.tagline { margin: 10px 0 18px; font-size: 1.3rem; font-weight: 600; opacity: 0.94; }
+.pitch { max-width: 720px; margin: 0; font-size: 1.05rem; opacity: 0.9; }
+
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.btn {
+  display: inline-block;
+  padding: 11px 20px;
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn.primary { background: var(--accent); border-color: var(--accent); }
+.btn:hover { filter: brightness(1.08); }
+
+main { padding: 12px 0 40px; }
+
+section { padding: 38px 0; border-bottom: 1px solid var(--line); }
+section:last-child { border-bottom: 0; }
+
+h2 {
+  margin: 0 0 20px;
+  color: var(--navy);
+  font-size: 1.65rem;
+  letter-spacing: -0.01em;
+}
+
+.grid { display: grid; gap: 14px; }
+.stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+
+.stat {
+  padding: 18px;
+  background: var(--tint);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+}
+
+.stat strong { display: block; color: var(--navy); font-size: 1.85rem; line-height: 1.1; }
+.stat span { display: block; margin-top: 6px; color: var(--muted); font-size: 0.88rem; }
+
+.source { margin: 16px 0 0; color: var(--muted); font-size: 0.88rem; }
+
+.steps { margin: 0; padding-left: 22px; }
+.steps li { margin-bottom: 12px; }
+
+code {
+  padding: 1px 5px;
+  background: var(--tint);
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.formula {
+  margin-top: 24px;
+  padding: 22px;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.formula span { display: block; font-size: 0.85rem; opacity: 0.8; }
+.formula strong { display: block; margin: 6px 0; font-size: 2rem; letter-spacing: 0.04em; }
+.formula small { display: block; opacity: 0.8; }
+
+.table-scroll { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+caption { text-align: left; color: var(--muted); padding-bottom: 10px; font-size: 0.88rem; }
+
+th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { background: var(--navy); color: var(--white); border-bottom: 0; }
+tbody th { color: var(--navy); width: 58px; }
+tbody tr:nth-child(even) { background: var(--tint); }
+
+.links { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--navy-soft);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.card:hover { border-left-color: var(--accent); background: var(--tint); }
+.card strong { display: block; color: var(--navy); }
+.card span { display: block; margin-top: 4px; color: var(--muted); font-size: 0.87rem; }
+
+pre {
+  overflow-x: auto;
+  padding: 18px;
+  background: #102a43;
+  color: #e6f0f8;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+pre code { padding: 0; background: none; color: inherit; font-size: 0.88rem; }
+
+.team { margin: 0; padding-left: 22px; }
+
+footer {
+  padding: 26px 0;
+  background: var(--navy);
+  color: rgba(255,255,255,0.82);
+  font-size: 0.86rem;
+}
+
+footer p { margin: 4px 0; }
+footer a { color: var(--white); }
+
+@media (max-width: 620px) {
+  .hero { padding: 48px 0 42px; }
+  section { padding: 28px 0; }
+}
