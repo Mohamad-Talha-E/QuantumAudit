@@ -21,6 +21,7 @@ import argparse
 import datetime as dt
 import os
 import re
+import statistics
 import subprocess
 import tempfile
 
@@ -37,6 +38,31 @@ SPECS = [
     ("ML-KEM-768", "ML-KEM-768", r"ML-KEM-768", ["keygen", "encaps", "decaps"]),
     ("ML-DSA-65", "ML-DSA-65", r"ML-DSA-65", ["keygen", "sign", "verify"]),
 ]
+
+
+def summarise(samples: list[float]) -> dict:
+    """Summarise repeated measurements of one operation.
+
+    Returns the count, mean, sample standard deviation, minimum and maximum.
+    A single sample has zero spread. An empty list returns ``None`` for every
+    statistic instead of raising, so a missing measurement is visible in the
+    report rather than crashing the benchmark.
+    """
+    if not samples:
+        return {
+            "count": 0,
+            "mean": None,
+            "stdev": None,
+            "min": None,
+            "max": None,
+        }
+    return {
+        "count": len(samples),
+        "mean": statistics.fmean(samples),
+        "stdev": statistics.stdev(samples) if len(samples) > 1 else 0.0,
+        "min": min(samples),
+        "max": max(samples),
+    }
 
 
 def _run(cmd: list[str], **kwargs) -> subprocess.CompletedProcess:
