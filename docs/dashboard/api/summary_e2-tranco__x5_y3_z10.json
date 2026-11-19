@@ -1,0 +1,57 @@
+{
+  "run_id": "e2-tranco",
+  "scenario": "x5_y3_z10",
+  "scenarios": [
+    "x10_y3_z10",
+    "x10_y3_z15",
+    "x10_y3_z20",
+    "x15_y3_z10",
+    "x15_y3_z15",
+    "x15_y3_z20",
+    "x25_y3_z10",
+    "x25_y3_z15",
+    "x25_y3_z20",
+    "x5_y3_z10",
+    "x5_y3_z15",
+    "x5_y3_z20"
+  ],
+  "hosts": 100,
+  "ok": 73,
+  "failed": 27,
+  "hybrid": 44,
+  "pq_key_exchange_pct": 60.3,
+  "started": "2026-11-02T23:20:17+00:00",
+  "finished": "2026-11-02T23:30:03+00:00",
+  "kx_groups": {
+    "X25519MLKEM768": 44,
+    "X25519": 17,
+    "P-256": 10,
+    "RSA": 1,
+    "P-384": 1
+  },
+  "cert_algs": {
+    "RSA": 51,
+    "EC": 22
+  },
+  "protocols": {
+    "TLSv1.3": 60,
+    "TLSv1.2": 13
+  },
+  "contextual": {
+    "low": 44,
+    "medium": 29
+  },
+  "naive": {
+    "high": 73
+  },
+  "classes": {
+    "hybrid": 44,
+    "vulnerable": 29
+  },
+  "charts": {
+    "risk": "e2-tranco_risk.png",
+    "kx": "e2-tranco_kx.png",
+    "certs": "e2-tranco_certs.png",
+    "sensitivity": "e2-tranco_sensitivity.png"
+  }
+}

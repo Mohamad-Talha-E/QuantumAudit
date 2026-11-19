@@ -1,0 +1,59 @@
+{
+  "run_id": "e1-lab",
+  "hosts": 20,
+  "flips": 13,
+  "naive_high": 20,
+  "optimistic": "x5_z20",
+  "pessimistic": "x25_z10",
+  "per_scenario": {
+    "x5_z10": {
+      "medium": 13,
+      "low": 7
+    },
+    "x5_z15": {
+      "low": 20
+    },
+    "x5_z20": {
+      "low": 20
+    },
+    "x10_z10": {
+      "high": 13,
+      "low": 7
+    },
+    "x10_z15": {
+      "medium": 13,
+      "low": 7
+    },
+    "x10_z20": {
+      "low": 20
+    },
+    "x15_z10": {
+      "high": 13,
+      "low": 7
+    },
+    "x15_z15": {
+      "high": 13,
+      "low": 7
+    },
+    "x15_z20": {
+      "medium": 13,
+      "low": 7
+    },
+    "x25_z10": {
+      "high": 13,
+      "low": 7
+    },
+    "x25_z15": {
+      "high": 13,
+      "low": 7
+    },
+    "x25_z20": {
+      "high": 13,
+      "low": 7
+    }
+  },
+  "classes": {
+    "vulnerable": 13,
+    "hybrid": 7
+  }
+}

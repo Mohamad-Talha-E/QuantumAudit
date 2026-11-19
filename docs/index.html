@@ -65,9 +65,19 @@
       </div>
     </section>
 
+    <section id="dashboard" aria-labelledby="dashboard-title">
+      <h2 id="dashboard-title">Dashboard</h2>
+      <p>This is a static copy of the FastAPI dashboard. It was built from the stored SQLite database. Run and scenario selection, charts, findings, search and paging work in the browser.</p>
+      <div class="frame">
+        <iframe src="dashboard/index.html" title="QuantumAudit dashboard" loading="lazy"></iframe>
+      </div>
+      <p class="source"><a href="dashboard/index.html">Open the full dashboard</a> &middot; <a href="dashboard/methodology.html">Methodology</a> &middot; The live Docker version runs with <code>docker compose up -d dashboard</code>.</p>
+    </section>
+
     <section id="explore" aria-labelledby="explore-title">
       <h2 id="explore-title">Explore the project</h2>
       <div class="grid links">
+        <a class="card" href="dashboard/index.html"><strong>Dashboard</strong><span>Static copy with real stored results</span></a>
         <a class="card" href="poster.pdf"><strong>Research poster</strong><span>A1 PDF used at the fair</span></a>
         <a class="card" href="final-report.docx"><strong>Final report</strong><span>Full IEEE-format DOCX</span></a>
         <a class="card" href="dashboard-guide.pdf"><strong>Dashboard guide</strong><span>Commands and numbers to show</span></a>

@@ -1,0 +1,41 @@
+{
+  "run_id": "demo-lab",
+  "scenario": "x15_y3_z15",
+  "scenarios": [],
+  "hosts": 20,
+  "ok": 20,
+  "failed": 0,
+  "hybrid": 6,
+  "pq_key_exchange_pct": 30.0,
+  "started": "2026-11-19T17:01:28+00:00",
+  "finished": "2026-11-19T17:01:29+00:00",
+  "kx_groups": {
+    "X25519": 6,
+    "P-256": 4,
+    "MLKEM768": 3,
+    "X25519MLKEM768": 2,
+    "P-384": 2,
+    "X448": 1,
+    "SecP256r1MLKEM768": 1,
+    "RSA": 1
+  },
+  "cert_algs": {
+    "RSA": 11,
+    "EC": 5,
+    "ML-DSA": 3,
+    "Ed25519": 1
+  },
+  "protocols": {
+    "TLSv1.3": 16,
+    "TLSv1.2": 4
+  },
+  "contextual": {},
+  "naive": {},
+  "classes": {},
+  "charts": {
+    "risk": "demo-lab_risk.png",
+    "kx": "demo-lab_kx.png",
+    "certs": "demo-lab_certs.png",
+    "sensitivity": "demo-lab_sensitivity.png"
+  }
+}

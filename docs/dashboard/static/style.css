@@ -1,0 +1,335 @@
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --ink: #1b2430;
+  --muted: #5b6675;
+  --line: #e2e6ec;
+  --blue: #1565c0;
+  --green: #2e7d32;
+  --orange: #ef6c00;
+  --red: #c62828;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+header {
+  background: #0f1b2d;
+  color: #fff;
+  padding: 18px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: 0.01em;
+}
+
+header p {
+  margin: 2px 0 0;
+  color: #9fb0c7;
+  font-size: 0.85rem;
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav a {
+  color: #9fb0c7;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav a:hover, .nav a.active {
+  color: #ffffff;
+  background: #1b2b44;
+}
+
+.controls { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.control-group label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9fb0c7;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+select:focus-visible,
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+select {
+  background: #1b2b44;
+  color: #fff;
+  border: 1px solid #2e4260;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  min-width: 150px;
+}
+
+main { padding: 24px 28px 60px; max-width: 1280px; margin: 0 auto; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.card .label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+.card .value { font-size: 1.7rem; font-weight: 650; margin-top: 4px; }
+.card .hint { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.value.high { color: var(--red); }
+.value.good { color: var(--green); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.panel h2 {
+  font-size: 0.95rem;
+  margin: 0 0 12px;
+  font-weight: 650;
+}
+
+.panel img { width: 100%; height: auto; display: block; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+
+th, td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: #fafbfc;
+  position: sticky;
+  top: 0;
+}
+
+tbody tr:hover { background: #f8fafc; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+}
+
+.badge.high { background: #fdecea; color: var(--red); border-color: #ef9a9a; }
+.badge.medium { background: #fff4e5; color: var(--orange); border-color: #ffcc80; }
+.badge.low { background: #e8f5e9; color: var(--green); border-color: #a5d6a7; }
+.badge.unknown { background: #eceff1; color: var(--muted); border-color: #b0bec5; }
+
+.mono { font-family: "Cascadia Mono", Consolas, monospace; font-size: 0.8rem; }
+.muted { color: var(--muted); }
+.scroll { max-height: 560px; overflow: auto; border-radius: 8px; }
+
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-header h2 {
+  margin: 0;
+}
+
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box input[type="search"] {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  width: 240px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-box input[type="search"]:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.15);
+}
+
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination .page-info {
+  font-size: 0.8rem;
+  color: var(--muted);
+  min-width: 80px;
+  text-align: center;
+}
+
+.btn {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: #f1f4f8;
+  border-color: #cbd5e1;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+
+.error { color: var(--red); }
+.empty { padding: 40px; text-align: center; color: var(--muted); }
+
+.formula-box {
+  background: #f0f4f8;
+  border-left: 4px solid var(--blue);
+  padding: 12px 18px;
+  margin: 14px 0 16px;
+  border-radius: 0 6px 6px 0;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section h3 {
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.section p, .section ul {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.section ul {
+  padding-left: 24px;
+}
+
+.section li {
+  margin-bottom: 6px;
+}
+
+footer {
+  padding: 18px 28px 40px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
