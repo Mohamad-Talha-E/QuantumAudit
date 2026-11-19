@@ -12,7 +12,14 @@ from __future__ import annotations
 from collections import Counter
 
 from scanner.db import DEFAULT_DB, init_db
-from scoring.mosca import HORIZONS, MIGRATION_STEP, SHELF_LIVES, naive_score, score
+from scoring.mosca import (
+    HORIZONS,
+    MIGRATION_STEP,
+    SHELF_LIVES,
+    naive_score,
+    score,
+    validate_planning,
+)
 from scoring.rules import classify
 
 
@@ -24,6 +31,12 @@ def build_table(
     migration_years: int = 3,
 ) -> dict:
     """Return per-scenario distributions plus flip counts."""
+    if not shelf_lives or not horizons:
+        raise ValueError("shelf_lives and horizons must not be empty")
+    for shelf in shelf_lives:
+        for horizon in horizons:
+            validate_planning(shelf, migration_years, horizon)
+
     conn = init_db(db)
     rows = conn.execute(
         "SELECT * FROM findings WHERE run_id = ? AND status = 'ok'", (run_id,)
