@@ -314,13 +314,17 @@ docker compose run --rm tools python -m pytest tests -q
 ```
 
 ```
-61 passed
+93 passed in 2.15s
 ```
 
+Measured on `build/full-system` at commit `9b787cf` with the command above.
+Earlier totals were 61 when E1 to E6 were measured, 66 at `1795d0f` and 80 at
+`1d5c5dd`.
+
 The suite covers the classifier (including the `ML-DSA`/`DSA` and
-`X25519MLKEM768`/`X25519` traps), the Mosca thresholds, database upserts and
-error rows, OpenSSL output parsing, Tranco sampling determinism and the
-dashboard's JSON safety.
+`X25519MLKEM768`/`X25519` traps), the Mosca thresholds and their input checks,
+database upserts and error rows, OpenSSL output parsing, Tranco sampling
+determinism, dashboard JSON safety and the benchmark summary helper.
 
 ---
 

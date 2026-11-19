@@ -395,11 +395,9 @@ Each team member led one area, with another member providing support:
   results and the final demonstration. GitHub commit history documents each
   member's contribution.
 
-Ongoing work is tracked per member in `TeamWorkings/<Name>/TASKS.md`. Each
-member commits real changes to their live module rather than a copy, records
-the commit in their task log, and requests review from the owner of any other
-module they touch. Module ownership is declared in `.github/CODEOWNERS`, and the
-branch, test and review workflow is in `CONTRIBUTING.md`.
+The repository commit history records each member's work. Each member commits
+real changes to their own module. A change that crosses modules needs review
+from both module owners.
 
 ### B. Weeks 4 to 8
 
@@ -874,7 +872,7 @@ exact executable command, required prerequisites, and generated artifacts:
 | **V.F (E6)** Sensitivity (Lab) | E1 lab run scenario verdict transitions | `e1-lab` scored | `python -m scanner.cli sensitivity --run-id e1-lab` | 13 verdict changes |
 | **V.F (E6)** Sensitivity (Tranco) | E2 Tranco run scenario verdict transitions | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | 29 verdict changes (39.7% of hosts) |
 | **V.F (E6)** Full Grid | 12-cell shelf life × quantum horizon distribution | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | Scenario distribution grid |
-| **V.G** Test Suite | Full test suite across scanner, scoring, and dashboard | Python venv / Docker | `python -m pytest tests -q` | 80 passing unit & integration tests |
+| **V.G** Test Suite | Full test suite across scanner, scoring, lab and dashboard | Docker (tools container) | `docker compose run --rm tools python -m pytest tests -q` | 93 passed at `9b787cf` |
 
 ### 3. Determinism and Data Integrity
 
