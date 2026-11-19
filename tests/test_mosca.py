@@ -4,7 +4,14 @@ from __future__ import annotations
 
 import pytest
 
-from scoring.mosca import naive_score, safe_window, scenario_name, score
+from scoring.mosca import (
+    naive_score,
+    safe_window,
+    scenario_name,
+    score,
+    validate_planning,
+)
+from scoring.sensitivity import build_table
 
 VULNERABLE = {"cert_alg": "RSA", "kx_group": "X25519", "cipher": "TLS_AES_256_GCM_SHA384"}
 HYBRID = {"cert_alg": "RSA", "kx_group": "X25519MLKEM768"}
@@ -66,3 +73,38 @@ def test_naive_is_never_lower_than_contextual():
             contextual = score(VULNERABLE, shelf_life_years=shelf, quantum_years=horizon)[0]
             assert contextual in ("low", "medium", "high")
             assert naive_score(VULNERABLE)[0] == "high"
+
+
+@pytest.mark.parametrize(
+    "shelf, migration, horizon",
+    [
+        (0, 3, 15),     # shelf life must be positive
+        (-1, 3, 15),    # negative shelf life
+        (15, -1, 15),   # migration cannot be negative
+        (15, 15, 15),   # migration equal to the horizon
+        (15, 16, 15),   # migration beyond the horizon
+        (15, 3, 0),     # horizon must be positive
+    ],
+)
+def test_validate_planning_rejects_impossible_scenarios(shelf, migration, horizon):
+    with pytest.raises(ValueError):
+        validate_planning(shelf, migration, horizon)
+
+
+def test_valid_planning_is_accepted():
+    validate_planning(15, 3, 15)  # must not raise
+
+
+def test_scenario_name_rejects_impossible_scenario():
+    with pytest.raises(ValueError):
+        scenario_name(15, 3, 3)
+
+
+def test_score_rejects_impossible_scenario():
+    with pytest.raises(ValueError):
+        score(VULNERABLE, shelf_life_years=0)
+
+
+def test_build_table_rejects_migration_beyond_horizon(db_path):
+    with pytest.raises(ValueError):
+        build_table("any-run", db=db_path, horizons=(10,), migration_years=10)
