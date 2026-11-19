@@ -872,7 +872,7 @@ exact executable command, required prerequisites, and generated artifacts:
 | **V.F (E6)** Sensitivity (Lab) | E1 lab run scenario verdict transitions | `e1-lab` scored | `python -m scanner.cli sensitivity --run-id e1-lab` | 13 verdict changes |
 | **V.F (E6)** Sensitivity (Tranco) | E2 Tranco run scenario verdict transitions | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | 29 verdict changes (39.7% of hosts) |
 | **V.F (E6)** Full Grid | 12-cell shelf life × quantum horizon distribution | `e2-tranco` scored | `python -m scanner.cli sensitivity --run-id e2-tranco` | Scenario distribution grid |
-| **V.G** Test Suite | Full test suite across scanner, scoring, lab and dashboard | Docker (tools container) | `docker compose run --rm tools python -m pytest tests -q` | 93 passed at `9b787cf` |
+| **V.G** Test Suite | Full test suite across scanner, scoring, lab and dashboard | Docker (tools container) | `docker compose run --rm tools python -m pytest tests -q` | 93 passed at `f173454` |
 
 ### 3. Determinism and Data Integrity
 

@@ -317,9 +317,9 @@ docker compose run --rm tools python -m pytest tests -q
 93 passed in 2.15s
 ```
 
-Measured on `build/full-system` at commit `9b787cf` with the command above.
-Earlier totals were 61 when E1 to E6 were measured, 66 at `1795d0f` and 80 at
-`1d5c5dd`.
+Measured on `build/full-system` at commit `f173454` with the command above.
+Earlier totals were 61 when E1 to E6 were measured, 66 at `f254f40` and 80 at
+`1eae0e7`.
 
 The suite covers the classifier (including the `ML-DSA`/`DSA` and
 `X25519MLKEM768`/`X25519` traps), the Mosca thresholds and their input checks,
